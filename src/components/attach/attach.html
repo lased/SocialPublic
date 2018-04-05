@@ -1,0 +1,6 @@
+<ion-list no-margin>
+    <button ion-item icon-left *ngFor="let item of items" (click)="item.handler($event)">
+        <ion-icon [name]="item.icon"></ion-icon>
+        {{ item.name }}
+      </button>  
+</ion-list>

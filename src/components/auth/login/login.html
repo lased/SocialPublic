@@ -1,0 +1,37 @@
+<form (ngSubmit)="login()" [formGroup]="form">
+
+    <ion-list>
+  
+      <div class="text-error" *ngIf="authError">
+        Неверный логин или пароль
+      </div>
+
+      <div class="text-warning" *ngIf="accessError">
+        Активируйте аккаунт
+      </div>
+  
+      <ion-item no-padding>
+        <ion-label floating>Введите email</ion-label>
+        <ion-input type="email" [formControl]="form.controls['email']" required></ion-input>
+      </ion-item>
+      <span class="text-error" *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+        {{ getErrorMessage(form, 'email') }}
+      </span>
+  
+      <ion-item no-padding>
+        <ion-label floating>Введите пароль</ion-label>
+        <ion-input type="password" [formControl]="form.controls['password']" required></ion-input>    
+      </ion-item>
+      <span class="text-error" *ngIf="form.controls['password'].invalid && form.controls['password'].touched">
+        {{ getErrorMessage(form, 'password') }}
+      </span>
+  
+      <ion-item hidden></ion-item>
+  
+    </ion-list>
+  
+    <button ion-button type="button" clear (click)="navCtrl.push('ForgetPage')">Забыли пароль?</button>    
+    <button ion-button color="secondary" [disabled]="form.invalid" full>Войти</button>
+    <button ion-button margin-top type="button" full (click)="navCtrl.push('RegistrationPage')">Зарегистрироваться</button>  
+    
+  </form>

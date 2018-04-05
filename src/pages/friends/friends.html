@@ -1,0 +1,89 @@
+<header [title]="'Друзья'"></header>
+
+
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="list">
+        Друзья
+      </ion-segment-button>
+      <ion-segment-button value="input">
+        Входящие
+      </ion-segment-button>
+      <ion-segment-button value="output">
+        Исходящие
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-refresher (ionRefresh)="getFriends($event)">
+    <ion-refresher-content pullingText="Потяните чтобы обновить..." refreshingText="Обновление..."></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid [ngSwitch]="tab">
+    <ion-row *ngSwitchCase="'list'">
+      <ion-col col-3 *ngFor="let f of friends.list; let i = index">
+        <ion-card>
+
+          <ion-card-header no-padding margin-bottom>
+            <img [src]="urlApi + f._id.avatar">
+          </ion-card-header>
+
+          <ion-card-content>
+            {{ f._id.surname + ' ' + f._id.name }}
+            <button ion-button full (click)="sendMessage(f._id._id)">
+              Написать сообщение
+            </button>
+            <button ion-button full (click)="deleteFriend(f._id._id, i)">
+              Удалить из друзей
+            </button>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngSwitchCase="'input'">
+      <ion-col col-3 *ngFor="let f of friends.input; let i = index">
+        <ion-card>
+
+          <ion-card-header no-padding margin-bottom>
+            <img [src]="urlApi + f._id.avatar">
+          </ion-card-header>
+
+          <ion-card-content>
+            {{ f._id.surname + ' ' + f._id.name }}
+            <button ion-button full (click)="confirmAddFriend(f._id._id, i)">
+              Принять
+            </button>
+            <button ion-button full (click)="cancelAddFriend(f._id._id, i, 'input')">
+              Отклонить
+            </button>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngSwitchCase="'output'">
+      <ion-col col-3 *ngFor="let f of friends.output; let i = index">
+        <ion-card>
+
+          <ion-card-header no-padding margin-bottom>
+            <img [src]="urlApi + f._id.avatar">
+          </ion-card-header>
+
+          <ion-card-content>
+            {{ f._id.surname + ' ' + f._id.name }}
+            <button ion-button full (click)="cancelAddFriend(f._id._id, i, 'output')">
+              Отменить
+            </button>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+

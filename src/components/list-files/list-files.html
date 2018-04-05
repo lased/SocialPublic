@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only clear (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Выбор файла
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col text-center>
+        <input type="file" accept="image/*" (change)="selectedFile($event)" id="fileInput" multiple hidden>
+        <label for="fileInput" icon-right>
+          Загрузить {{ type == 'images' ? 'изображение': type == 'docs' ? 'документ': ''}}
+          <ion-icon name="add"></ion-icon>
+        </label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ng-template [ngIf]="type == 'images'">
+        <ion-col *ngFor="let f of files" col-4>
+          <img [src]="path + f" (click)="selectedFile(f)">
+        </ion-col>
+      </ng-template>
+      <ng-template [ngIf]="type == 'docs'">
+        <ion-col *ngFor="let f of files" col-12 icon-right>
+          <a [href]="path + f">{{ f }}</a>
+          <button float-right ion-button clear icon-only (click)="selectedFile(f)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-col>
+      </ng-template>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

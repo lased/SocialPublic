@@ -1,0 +1,13 @@
+<ion-list no-lines no-margin>
+  <input type="file" accept="image/*" (change)="downloadImage($event)" id="fileInput" hidden>
+  <label for="fileInput" ion-item icon-left>
+    <ion-icon name="md-download"></ion-icon>
+    Загрузить изображение
+  </label>
+
+  <!-- <button ion-item icon-left (click)="makeSnapshot()">
+    <ion-icon name="md-camera"></ion-icon>
+    Сделать снимок
+  </button> -->
+</ion-list>
+

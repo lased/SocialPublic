@@ -1,0 +1,24 @@
+<ion-item no-padding *ngIf="type == 'text' || type == 'email' || type == 'password'">
+    <ion-label floating>{{ label }}</ion-label>
+    <ion-input [type]="type" [value]="value" [formControl]="control"></ion-input>
+</ion-item>
+
+<ion-list radio-group [formControl]="control" no-lines *ngIf="type == 'radio' && name == 'sex'" no-margin>
+    <ion-list-header no-padding no-lines>
+        {{ label }}
+    </ion-list-header>
+
+    <ion-item no-padding>
+        <ion-label>Мужской</ion-label>
+        <ion-radio value="true"></ion-radio>
+    </ion-item>
+    <ion-item no-padding>
+        <ion-label>Женский</ion-label>
+        <ion-radio value="false"></ion-radio>
+    </ion-item>
+</ion-list>
+
+<ion-item no-padding *ngIf="type == 'date'">
+    <ion-label>{{ label }}</ion-label>
+    <ion-datetime displayFormat="DD.MM.YYYY" [formControl]="control" [cancelText]="'Отмена'" [doneText]="'Выбрать'"></ion-datetime>
+</ion-item>

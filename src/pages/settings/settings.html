@@ -1,0 +1,70 @@
+<header [title]="'Настройки'"></header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="common">
+      Общие
+    </ion-segment-button>
+    <ion-segment-button value="profile">
+      Профиль
+    </ion-segment-button>
+    <ion-segment-button value="theme">
+      Тема
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="tab">
+
+    <ng-template ngFor let-s [ngForOf]="settings">
+      <form [formGroup]="form[s.tab]" (ngSubmit)="save(s.tab)">
+        <ion-list *ngSwitchCase="s.tab">
+          <ion-grid>
+            <ion-row justify-content-center>
+              <ion-col col-sm-12 col-md-6>
+                <ion-list no-lines>
+
+                  <ng-template [ngIf]="s.tab !== 'theme'">
+
+                    <div class="text-error" *ngIf="formError !== ''">
+                      {{ formError }}
+                    </div>
+
+                    <ng-template ngFor let-p [ngForOf]="s.parametrs">
+
+                      <field [label]="labels[p.name]" [name]="p.name" [value]="p.value" [type]="p.type" [control]="form[s.tab].controls[p.name]"></field>
+
+                      <span class="text-error" *ngIf="form[s.tab].controls[p.name].invalid">
+                        {{ getErrorMessage(form[s.tab], p.name) }}
+                      </span>
+                    </ng-template>
+
+                  </ng-template>
+
+                  <ng-template [ngIf]="s.tab == 'theme'">
+                    <ion-list-header no-lines>
+                      Заголовок (Header)
+                    </ion-list-header>
+                    <ion-item>
+                      <ion-label floating>Цвет фона:</ion-label>
+                      <ion-input type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Цвет текста:</ion-label>
+                      <ion-input type="text"></ion-input>
+                    </ion-item>
+                  </ng-template>
+
+                  <ion-item hidden></ion-item>
+                </ion-list>
+
+                <button ion-button full [disabled]="form[s.tab].invalid">Сохранить</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
+      </form>
+    </ng-template>
+
+  </div>
+</ion-content>

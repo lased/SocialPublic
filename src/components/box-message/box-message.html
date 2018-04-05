@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only clear (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Сообщение
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-textarea [(ngModel)]="message" placeholder="Сообщение"></ion-textarea>
+  <button ion-button clear icon-only (click)="attach($event)">
+    <ion-icon name="md-attach"></ion-icon>
+  </button>
+  <button ion-button clear icon-only (click)="toggled = !toggled" [(emojiPickerIf)]="toggled" [emojiPickerDirection]="'right'"
+    (emojiPickerSelect)="handleSelection($event)" style="font-size: 30px;">
+    &#9786;
+  </button>
+  <button ion-button full>Отправить</button>
+
+</ion-content>

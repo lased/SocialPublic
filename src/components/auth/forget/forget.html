@@ -1,0 +1,24 @@
+<form (ngSubmit)="forget()" [formGroup]="form">
+    <h2 text-center style="color: #fff">Восстановление</h2>
+
+    <ion-list>
+  
+      <div class="text-error" *ngIf="forgetError">
+        Данного email не существует
+      </div>
+  
+      <ion-item no-padding>
+        <ion-label floating>Введите email</ion-label>
+        <ion-input type="email" [formControl]="form.controls['email']" required></ion-input>
+      </ion-item>
+      <span class="text-error" *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+        {{ getErrorMessage(form, 'email') }}
+      </span>
+  
+      <ion-item hidden></ion-item>
+  
+    </ion-list>
+  
+    <button ion-button color="secondary" [disabled]="form.invalid" full>Восстановить</button>
+    
+  </form>

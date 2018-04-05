@@ -1,0 +1,23 @@
+page-registration {
+    .auth {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    .auth>div:first-child {
+        margin: auto;
+        max-width: 650px;
+        width: 100%;
+    }
+
+    .content {
+        background-color: color($colors, auth);
+    }
+    .item {
+        background-color: inherit;
+    }
+    .item .label,
+    .item .input, {
+        color: #fff!important;
+    }
+}

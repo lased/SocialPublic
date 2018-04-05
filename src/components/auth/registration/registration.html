@@ -1,0 +1,48 @@
+<form (ngSubmit)="registration()" [formGroup]="form">
+    <h2 text-center style="color: #fff">Регистрация</h2>
+
+    <ion-list>
+
+        <div class="text-error" *ngIf="registrationError">
+            Пользователь с данным email уже зарегистрирован
+        </div>
+
+        <ion-item no-padding>
+            <ion-label floating>Введите email</ion-label>
+            <ion-input type="email" [formControl]="form.controls['email']" required></ion-input>
+        </ion-item>
+        <span class="text-error" *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+            {{ getErrorMessage(form, 'email') }}
+        </span>
+
+        <ion-item no-padding>
+            <ion-label floating>Введите пароль</ion-label>
+            <ion-input type="password" [formControl]="form.controls['password']" required></ion-input>
+        </ion-item>
+        <span class="text-error" *ngIf="form.controls['password'].invalid && form.controls['password'].touched">
+            {{ getErrorMessage(form, 'password') }}
+        </span>
+
+        <ion-item no-padding>
+            <ion-label floating>Введите фамилию</ion-label>
+            <ion-input type="text" [formControl]="form.controls['surname']" required></ion-input>
+        </ion-item>
+        <span class="text-error" *ngIf="form.controls['surname'].invalid && form.controls['surname'].touched">
+            {{ getErrorMessage(form, 'surname') }}
+        </span>
+
+        <ion-item no-padding>
+            <ion-label floating>Введите имя</ion-label>
+            <ion-input type="text" [formControl]="form.controls['name']" required></ion-input>
+        </ion-item>
+        <span class="text-error" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+            {{ getErrorMessage(form, 'name') }}
+        </span>
+
+        <ion-item hidden></ion-item>
+
+    </ion-list>
+
+    <button ion-button color="secondary" [disabled]="form.invalid" full>Зарегистрироваться</button>
+
+</form>

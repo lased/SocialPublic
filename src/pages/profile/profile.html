@@ -1,0 +1,53 @@
+<header [title]="'Профиль'"></header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row justify-content-around>
+      <ion-col col-4>
+        <ion-grid>
+          <ion-row>
+
+            <ion-col col-12 box-shadow>
+              <div class="avatar" [ngStyle]="{'background-image': 'url(' + user.avatar + ')'}"></div>
+              <ng-template [ngIf]="storageProvider.get('url') !== url && authProvider.isLoggedIn()">
+                <button ion-button full (click)="addToFriend(user._id)" [disabled]="isFriend" icon-left>
+                  <ion-icon name="md-person-add" *ngIf="!isFriend"></ion-icon>
+                  {{ isFriend && status ? 'У вас в друзьях' : isFriend && input ? 'Заявка в друзья' : isFriend && status == null ? 'Заявка отправлена':'Добавить в друзья'}}
+                </button>
+                <button ion-button full style="border-radius: 0px 0px 5px 5px;" (click)="sendMessage(user._id)" icon-left>
+                  <ion-icon name="md-mail"></ion-icon>
+                  Отправить сообщение
+                </button>
+              </ng-template>
+            </ion-col>
+
+            <ion-col col-12 box-shadow margin-top>List friends</ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+      </ion-col>
+      <ion-col col-7>
+        <ion-grid>
+          <ion-row>
+
+            <ion-col col-12 box-shadow>
+              <div float-left>{{ user.surname }} {{ user.name }}</div>
+              <div float-right>
+                <div *ngIf="user.state">Online
+                  <ion-icon *ngIf="user.platform" name="md-phone-portrait"></ion-icon>
+                </div>
+                <div *ngIf="!user.state">
+                  Последнее посещение {{ user.lastAccess | date: 'dd.MM.yyyy в H:mm'}}
+                  <ion-icon *ngIf="user.platform" name="md-phone-portrait"></ion-icon>
+                </div>
+              </div>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
