@@ -13,7 +13,10 @@
 
 <ion-content>
 
-  <ion-textarea [(ngModel)]="message" placeholder="Сообщение"></ion-textarea>
+  <span class="text-error" *ngIf="message.invalid && message.touched">
+    {{ getErrorMessage(message) }}
+  </span>
+  <ion-textarea [formControl]="message" placeholder="Сообщение" ></ion-textarea>
   <button ion-button clear icon-only (click)="attach($event)">
     <ion-icon name="md-attach"></ion-icon>
   </button>
@@ -21,6 +24,9 @@
     (emojiPickerSelect)="handleSelection($event)" style="font-size: 30px;">
     &#9786;
   </button>
-  <button ion-button full>Отправить</button>
+
+  <view-files [files]="files" (remove)="removeFile($event)"></view-files>
+
+  <button ion-button full (click)="sendMessage()" [disabled]="message.invalid">Отправить</button>
 
 </ion-content>

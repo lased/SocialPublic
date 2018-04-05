@@ -1,8 +1,8 @@
 export class FormClass {
     constructor() {}
     
-    getErrorMessage(form, name) {
-        const field = form.controls[name];
+    getErrorMessage(form, name = null) {
+        const field = name == null ? form : form.controls[name];
         let errorMessage = '';
         
         if (field.hasError('required')) {

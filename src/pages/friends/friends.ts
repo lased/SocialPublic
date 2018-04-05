@@ -31,8 +31,8 @@ export class FriendsPage {
   ) {
   }
 
-  sendMessage() { 
-    this.modalCtrl.create(BoxMessageComponent).present();
+  sendMessage(id) { 
+    this.modalCtrl.create(BoxMessageComponent, { id }).present();
   }
   deleteFriend(id, index) {
     this.userProvider.cancelAddFriend(id).subscribe(data => {

@@ -14,6 +14,7 @@ import { PreviewImageComponent } from './preview-image/preview-image';
 import { BoxMessageComponent } from './box-message/box-message';
 import { AttachComponent } from './attach/attach';
 import { ListFilesComponent } from './list-files/list-files';
+import { ViewFilesComponent } from './view-files/view-files';
 
 @NgModule({
 	declarations: [
@@ -26,8 +27,9 @@ import { ListFilesComponent } from './list-files/list-files';
 		AvatarComponent,
 		PreviewImageComponent,
 		BoxMessageComponent,
-    AttachComponent,
-    ListFilesComponent
+		AttachComponent,
+		ListFilesComponent,
+		ViewFilesComponent
 	],
 	imports: [
 		IonicModule,
@@ -43,15 +45,17 @@ import { ListFilesComponent } from './list-files/list-files';
 		AvatarComponent,
 		PreviewImageComponent,
 		BoxMessageComponent,
-    AttachComponent,
-    ListFilesComponent
+		AttachComponent,
+		ListFilesComponent,
+		ViewFilesComponent
 	],
 	entryComponents: [
 		AvatarComponent,
 		PreviewImageComponent,
 		BoxMessageComponent,
 		AttachComponent,
-		ListFilesComponent
+		ListFilesComponent,
+		ViewFilesComponent
 	],
 	providers: [
 	]

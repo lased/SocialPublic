@@ -13,6 +13,7 @@ import { UserProvider } from '../providers/user/user';
 import { SocketProvider } from '../providers/socket/socket';
 import { AuthProvider } from '../providers/auth/auth';
 import { StorageProvider } from '../providers/storage/storage';
+import { ChatProvider } from '../providers/chat/chat';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StorageProvider } from '../providers/storage/storage';
     UserProvider,
     SocketProvider,
     AuthProvider,
-    StorageProvider
+    StorageProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}
