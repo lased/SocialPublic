@@ -11,8 +11,8 @@ export class ViewFilesComponent {
   constructor() {
   }
 
-  isImage(imgObj, index = null) {
-    if (/.+\.(jpg|png|jpeg|gif)$/.test(imgObj.name))
+  isImage(imgObj, index = null) {        
+    if (/.+\.(jpg|png|jpeg|gif)$/.test(imgObj.name == undefined ? imgObj.file.name : imgObj.name))
       return true;
     return false;
   }

@@ -69,9 +69,9 @@ export class BoxMessageComponent extends FormClass {
 
             if (!bool)
               this.files.push(data.files[i]);
-          }
-    })
-    popover.present({ ev });
+          }          
+    })    
+    popover.present({ ev });    
   }
 
   handleSelection(event) {

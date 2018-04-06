@@ -5,7 +5,7 @@
     <button ion-button icon-only clear class="avatar-more" (click)="openMore($event)">
         <ion-icon name="md-more"></ion-icon>
       </button>
-    <div class="avatar" [ngStyle]="{'background-image': 'url(' + storageProvider.get('avatar') + ')'}"></div>
+    <div class="avatar" [ngStyle]="{'background-image': 'url(' + getAvatar() + ')'}"></div>
     <h4 text-center>{{ storageProvider.get('surname') }} {{ storageProvider.get('name') }}</h4>
   </ion-header>
   <ion-content class="no-scroll">

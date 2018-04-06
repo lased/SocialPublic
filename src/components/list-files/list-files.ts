@@ -34,7 +34,7 @@ export class ListFilesComponent extends FileClass {
       }
     }
     else
-      files = [{ path: this.path, name: ev }];
+      files = [{ path: this.path, file: ev }];    
     this.viewCtrl.dismiss({ files });
   }
 

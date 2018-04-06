@@ -34,6 +34,10 @@ export class MyApp {
     });
   }
 
+  getAvatar(){    
+    return `"${this.storageProvider.get('avatar')}"`;
+  }
+
   openMore(event){    
     this.popoverCtrl.create(AvatarComponent).present({
       ev: event

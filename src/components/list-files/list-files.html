@@ -16,7 +16,7 @@
   <ion-grid>
     <ion-row align-items-center>
       <ion-col text-center>
-        <input type="file" [accept]="type == 'images' ? 'image/*': '*/*'" (change)="selectedFile($event)" id="fileInput" multiple hidden>
+        <input type="file" accept="{{ type == 'images' ? 'image/*': '*/*' }}" (change)="selectedFile($event)" id="fileInput" multiple hidden>
         <label for="fileInput" icon-right>
           Загрузить {{ type == 'images' ? 'изображение': type == 'docs' ? 'документ': ''}}
           <ion-icon name="add"></ion-icon>
@@ -26,12 +26,12 @@
     <ion-row>
       <ng-template [ngIf]="type == 'images'">
         <ion-col *ngFor="let f of files" col-4>
-          <img [src]="path + f" (click)="selectedFile(f)">
+          <img [src]="path + f.name" (click)="selectedFile(f)">
         </ion-col>
       </ng-template>
       <ng-template [ngIf]="type == 'docs'">
         <ion-col *ngFor="let f of files" col-12 icon-right>
-          <a [href]="path + f" target="_blank">{{ f }}</a>
+          <a [href]="path + f.name" target="_blank">{{ f.name }}</a>
           <button float-right ion-button clear icon-only (click)="selectedFile(f)">
             <ion-icon name="add"></ion-icon>
           </button>

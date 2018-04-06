@@ -1,10 +1,10 @@
 <ion-list no-margin>
   <ion-item *ngFor="let f of files; let i = index">
     <ng-template [ngIf]="isImage(f, i)">
-      <img [src]="f.path ? f.path + f.name: f.base64" style="max-height: 200px;">
+      <img [src]="f.path ? (f.path + (f.name ? f.name : f.file.name)) : f.base64" style="max-height: 200px;">
     </ng-template>
     <ng-template [ngIf]="!isImage(f)">
-      <a [href]="f.path + f.name" target="_blank">{{ f.name }}</a>
+      <span>{{ f.name ? f.name : f.file.name }}</span>
     </ng-template>
     <button ion-button clear item-end icon-only (click)="removeFile(i)">
       <ion-icon name="md-close"></ion-icon>

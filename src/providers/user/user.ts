@@ -48,7 +48,7 @@ export class UserProvider {
   }
 
   deletePhoto(image) {
-    return this.http.delete(Config.UrlApi + '/api/user/photo?token=' + this.token + "&image=" + image);
+    return this.http.delete(Config.UrlApi + '/api/user/photo?token=' + this.token + "&image=" + JSON.stringify(image));
   }
   setPhotoAvatar(image) {
     return this.http.post(Config.UrlApi + '/api/user/photo/avatar', { token: this.token, image });
