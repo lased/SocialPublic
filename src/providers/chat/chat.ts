@@ -17,14 +17,17 @@ export class ChatProvider {
 
   sendMessage(id, msg, files, type){
     let fd = new FormData()
+    let downloaded = [];
 
     fd.append('token', this.token);
     fd.append('message', msg);
     fd.append('id', id);
     fd.append('type', type);
     for (let i = 0; i < files.length; i++) {
-      files[i] instanceof File ? fd.append('uploadedFiles', files[i]) : fd.append('downloadedFiles', JSON.stringify(files[i]));
+      files[i] instanceof File ? fd.append('uploadedFiles', files[i]) : downloaded.push(files[i]);
     }
+
+    fd.append('downloadedFiles', JSON.stringify(downloaded))
 
     const req = new HttpRequest('POST', Config.UrlApi + '/api/user/chat/message', fd, {
       reportProgress: true,

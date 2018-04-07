@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, PopoverController, AlertController, NavParams } from 'ionic-angular';
+import { ViewController, PopoverController, AlertController, NavParams, LoadingController } from 'ionic-angular';
 import { FormControl, Validators } from '@angular/forms';
 
 import { AttachComponent } from '../attach/attach';
@@ -25,21 +25,29 @@ export class BoxMessageComponent extends FormClass {
     private alertCtrl: AlertController,
     private navParams: NavParams,
     private chatProvider: ChatProvider,
+    private loadingCtrl: LoadingController,
   ) {
     super();
     this.id = this.navParams.get('id');
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.message = new FormControl('', [Validators.required, Validators.minLength(5)])
   }
 
   sendMessage() {
+    let loader = this.loadingCtrl.create()
+
+    loader.present();
     this.chatProvider.sendMessage(this.id, this.message.value, this.files, 'box').subscribe(data => {
       if (data.type === HttpEventType.UploadProgress) {
         const percentDone = Math.round(100 * data.loaded / data.total);
-      } else if (data instanceof HttpResponse) { 
-        //Добавить loader
+        loader.setContent(percentDone + '%');        
+      } else if (data instanceof HttpResponse) {
+        if (data.body['code'] == 200){
+          loader.dismiss();
+          this.close()          
+        }
       }
     })
   }
@@ -63,15 +71,22 @@ export class BoxMessageComponent extends FormClass {
             let bool = false;
 
             for (let j = 0; j < this.files.length; j++) {
-              if (this.files[j].name == data.files[i].name)
-                bool = true;
+              let file1 = data.files[i];
+              let file2 = this.files[j];
+
+              if (file1 instanceof File && file2 instanceof File)
+                if (file2.name == file1.name)
+                  bool = true;
+              if (!(file1 instanceof File) && !(file2 instanceof File))
+                if (file2.file.name == file1.file.name)
+                  bool = true;
             }
 
             if (!bool)
               this.files.push(data.files[i]);
-          }          
-    })    
-    popover.present({ ev });    
+          }
+    })
+    popover.present({ ev });
   }
 
   handleSelection(event) {
