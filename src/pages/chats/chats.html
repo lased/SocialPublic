@@ -1,5 +1,24 @@
 <header [title]="'Сообщения'"></header>
 
 <ion-content padding>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <ion-list>
+          <ion-item *ngFor="let c of chats">
+            <ion-avatar item-start>
+              <img [src]="apiUrl + c.avatar">
+            </ion-avatar>
+            <h2>{{ c.name }}</h2>
+            <p>{{ c.messages[0].message.text }}</p>
+            <ion-note item-end>{{ getDate(c.messages[0].date) }}</ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-8>
+        2
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+

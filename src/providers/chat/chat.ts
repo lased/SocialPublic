@@ -15,7 +15,11 @@ export class ChatProvider {
     this.token = this.storageProvider.get('token');
   }
 
-  sendMessage(id, msg, files, type){
+  getChats() {
+    return this.http.get(Config.UrlApi + '/api/user/chats?token=' + this.token);
+  }
+
+  sendMessage(id, msg, files, type) {
     let fd = new FormData()
     let downloaded = [];
 
@@ -33,6 +37,6 @@ export class ChatProvider {
       reportProgress: true,
     });
 
-    return this.http.request(req);  
+    return this.http.request(req);
   }
 }
