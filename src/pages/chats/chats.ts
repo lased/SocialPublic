@@ -7,7 +7,9 @@ import { ChatProvider } from '../../providers/chat/chat';
 import { Config } from '../../config';
 
 @Auth()
-@IonicPage()
+@IonicPage({
+  segment: 'chats/:id'
+})
 @Component({
   selector: 'page-chats',
   templateUrl: 'chats.html',
@@ -21,7 +23,7 @@ export class ChatsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private authProvider: AuthProvider,
-    private chatProvider: ChatProvider
+    private chatProvider: ChatProvider,
   ) {
     this.month = [
       "янв", "фев", "мар", "апр", "май", "июн",
@@ -29,17 +31,21 @@ export class ChatsPage {
     ]
   }
 
+  openChat(chat) {
+      this.navCtrl.push('ChatPage', { chat });
+  }
+
   getDate(d) {
     let date = new Date(d);
     let now = new Date();
-    let str = "";       
+    let str = "";
 
     if (now.getDate() > date.getDate() && now.getFullYear() == date.getFullYear()) {
       str += date.getDate() + ' ' + this.month[date.getMonth()];
     } else if (now.getFullYear() > date.getFullYear()) {
       str += date.getDate() + ' ' + this.month[date.getMonth()] + ' ' + date.getFullYear();
     } else {
-      str += date.getHours() + ':' + date.getMinutes();
+      str += date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
     }
 
     return str;

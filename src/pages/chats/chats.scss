@@ -1,6 +1,6 @@
 page-chats {
-    ion-avatar img {
-        width: 50px!important;
-        height: 50px!important;
+    .chats ion-item:hover{
+        border-left: 5px solid color($colors, primary);
+        cursor: pointer;
     }
 }

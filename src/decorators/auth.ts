@@ -17,6 +17,7 @@ export function Auth(type: string = '-a') {
                     window.localStorage.setItem('url', data.data.url);
                     window.localStorage.setItem('state', data.data.state);
                     window.localStorage.setItem('friends', JSON.stringify(data.data.friends));
+                    window.localStorage.setItem('chats', JSON.stringify(data.data.chats));
                 } else {
                     auth = false;
                 }   

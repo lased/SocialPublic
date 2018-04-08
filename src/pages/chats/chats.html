@@ -2,12 +2,16 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row>
-      <ion-col col-4>
-        <ion-list>
-          <ion-item *ngFor="let c of chats">
+    <ion-row justify-content-center>
+      <ion-col col-sm-12 col-md-6 class="chats">
+        <ion-list no-margin>
+          <ion-item *ngFor="let c of chats; let i = index" (click)="openChat(i)" no-padding>
             <ion-avatar item-start>
               <img [src]="apiUrl + c.avatar">
+              <ng-template [ngIf]="c.state">
+                <div class="avatar-state circle" *ngIf="!c.platform"></div>
+                <ion-icon class="avatar-state" name="phone-portrait" *ngIf="c.platform"></ion-icon>
+              </ng-template>
             </ion-avatar>
             <h2>{{ c.name }}</h2>
             <p>{{ c.messages[0].message.text }}</p>
@@ -15,10 +19,6 @@
           </ion-item>
         </ion-list>
       </ion-col>
-      <ion-col col-8>
-        2
-      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-

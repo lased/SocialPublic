@@ -15,6 +15,7 @@ import { BoxMessageComponent } from './box-message/box-message';
 import { AttachComponent } from './attach/attach';
 import { ListFilesComponent } from './list-files/list-files';
 import { ViewFilesComponent } from './view-files/view-files';
+import { ChatMessageComponent } from './chat-message/chat-message';
 
 @NgModule({
 	declarations: [
@@ -29,7 +30,8 @@ import { ViewFilesComponent } from './view-files/view-files';
 		BoxMessageComponent,
 		AttachComponent,
 		ListFilesComponent,
-		ViewFilesComponent
+		ViewFilesComponent,
+    ChatMessageComponent
 	],
 	imports: [
 		IonicModule,
@@ -47,7 +49,8 @@ import { ViewFilesComponent } from './view-files/view-files';
 		BoxMessageComponent,
 		AttachComponent,
 		ListFilesComponent,
-		ViewFilesComponent
+		ViewFilesComponent,
+    ChatMessageComponent
 	],
 	entryComponents: [
 		AvatarComponent,
