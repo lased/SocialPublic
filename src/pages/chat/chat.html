@@ -1,13 +1,13 @@
 <header [title]="chat.name"></header>
 
-<ion-content padding>
+<ion-content>
 
-  <ion-grid>
+  <ion-grid no-padding>
     <ion-row justify-content-center>
-      <ion-col col-sm-12 col-md-8>
-        <ion-grid>
+      <ion-col col-sm-12 col-md-8 no-padding>
+        <ion-grid no-padding>
           <ion-row *ngFor="let m of chat.messages;">
-            <ion-col col-6 [ngClass]="{from: check(m.from.url, url), to: !check(m.from.url, url)}">
+            <ion-col col-6 [ngClass]="{from: !check(m.from.url, url), to: check(m.from.url, url)}">
               {{ m.message.text }}
             </ion-col>
           </ion-row>
@@ -15,7 +15,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <chat-message></chat-message>
 
-
+  <ion-grid no-padding class="chat">
+      <ion-row justify-content-center>
+        <ion-col col-sm-12 col-md-8 no-padding>
+          <chat-message></chat-message>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>

@@ -32,7 +32,7 @@ export class ChatsPage {
   }
 
   openChat(chat) {
-      this.navCtrl.push('ChatPage', { chat });
+    this.navCtrl.push('ChatPage', { chat });
   }
 
   getDate(d) {

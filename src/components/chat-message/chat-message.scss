@@ -1,3 +1,9 @@
 chat-message {
-
+    .message textarea{
+        resize: none;
+    }
+    .send-message{
+        display: inline-flex;
+        width: 100%;
+    }
 }

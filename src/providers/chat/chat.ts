@@ -15,9 +15,7 @@ export class ChatProvider {
     this.token = this.storageProvider.get('token');
   }
 
-  getMessages(chat){
-    chat = JSON.parse(this.storageProvider.get('chats'))[chat];
-    
+  getMessages(chat){    
     return this.http.get(Config.UrlApi + '/api/user/chat?token=' + this.token + '&chat=' + chat);    
   }
 

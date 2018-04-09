@@ -1,7 +1,21 @@
-<ion-grid>
-  <ion-row>
-    <ion-col col-2>1</ion-col>
-    <ion-col col-8>2</ion-col>
-    <ion-col col-2>3</ion-col>
-  </ion-row>
-</ion-grid>
+<div class="send-message">
+
+  <button ion-button icon-only full clear style="width: 40px;">
+    <ion-icon name="md-attach"></ion-icon>
+  </button>
+
+  <ion-textarea [formControl]="message" placeholder="Сообщение" class="message" no-margin></ion-textarea>
+
+
+  <button ion-button clear icon-only (click)="toggled = !toggled" [(emojiPickerIf)]="toggled" [emojiPickerDirection]="'top'"
+    (emojiPickerSelect)="handleSelection($event)" style="font-size: 30px;margin: 0;">
+    &#9786;
+  </button>
+
+  <button ion-button icon-only full style="width: 50px;">
+    <ion-icon name="md-send"></ion-icon>
+  </button>
+
+  <view-files [files]="files" (remove)="removeFile($event)"></view-files>
+
+</div>

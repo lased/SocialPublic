@@ -1,8 +1,10 @@
 page-chat {
-    .from{
+    .from {
         margin-left: 50%;
     }
-    .to{
-
+    .to {}
+    .chat {
+        position: absolute;
+        bottom: 56px;
     }
-}   
+}

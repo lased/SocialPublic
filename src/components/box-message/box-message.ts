@@ -38,15 +38,15 @@ export class BoxMessageComponent extends FormClass {
   sendMessage() {
     let loader = this.loadingCtrl.create()
 
-    loader.present();
+    this.files.length > 0 ? loader.present() : '';
     this.chatProvider.sendMessage(this.id, this.message.value, this.files, 'box').subscribe(data => {
       if (data.type === HttpEventType.UploadProgress) {
         const percentDone = Math.round(100 * data.loaded / data.total);
-        loader.setContent(percentDone + '%');        
+        loader.setContent(percentDone + '%');
       } else if (data instanceof HttpResponse) {
-        if (data.body['code'] == 200){
-          loader.dismiss();
-          this.close()          
+        if (data.body['code'] == 200) {
+          this.files.length > 0 ? loader.dismiss() : '';
+          this.close()
         }
       }
     })
