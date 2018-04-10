@@ -37,7 +37,7 @@ export class SocketProvider {
     }
   }
 
-  emit(name, data){
+  emit(name, data) {
     this.socket.emit(name, data);
   }
 
@@ -45,6 +45,9 @@ export class SocketProvider {
     return new Observable<any>(observer => {
       this.socket.on(name, (data) => observer.next(data));
     });
+  }
+  off(name) {
+    this.socket.off(name);
   }
 
   init() {

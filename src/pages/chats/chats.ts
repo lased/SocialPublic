@@ -7,9 +7,7 @@ import { ChatProvider } from '../../providers/chat/chat';
 import { Config } from '../../config';
 
 @Auth()
-@IonicPage({
-  segment: 'chats/:id'
-})
+@IonicPage()
 @Component({
   selector: 'page-chats',
   templateUrl: 'chats.html',

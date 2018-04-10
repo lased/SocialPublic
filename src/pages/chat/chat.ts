@@ -27,30 +27,35 @@ export class ChatPage {
     private authProvider: AuthProvider,
     private storageProvider: StorageProvider,
     private chatProvider: ChatProvider,
-    private socketProvider: SocketProvider,    
+    private socketProvider: SocketProvider,
   ) {
     this.chat = this.navParams.get('chat');
-    this.url = this.storageProvider.get('url'); 
-    this.chatId = JSON.parse(this.storageProvider.get('chats'))[this.chat];   
+    this.url = this.storageProvider.get('url');
   }
 
-  check(url1, url2){
-    return url1 != url2;    
+  check(url1, url2) {
+    return url1 != url2;
   }
 
-  ionViewCanLeave(){
-    this.socketProvider.emit('leave chat', this.chatId);    
-    
+  ionViewCanLeave() {
+    this.socketProvider.emit('leave chat', this.chatId);
+
     return true;
   }
 
   ionViewDidLoad() {
-    this.socketProvider.emit('join chat', this.chatId);    
-    
+    this.chatId = JSON.parse(this.storageProvider.get('chats'))[this.chat];
+    this.socketProvider.emit('join chat', this.chatId);
+
     this.chatProvider.getMessages(this.chatId).subscribe(data => {
       if (data['code'] == 200)
         this.chat = data['message'];
-    })
+    });
+
+    this.socketProvider.off('chat message');
+    this.socketProvider.on('chat message').subscribe(msg => {
+      this.chat.messages.push(msg);
+    });
   }
 
 }
