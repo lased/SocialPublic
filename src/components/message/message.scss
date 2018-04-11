@@ -1,0 +1,48 @@
+message {
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-position: 50%;
+    }
+    .from {
+        justify-content: end;
+        .message {
+            background-color: color($colors, from);
+            color: #fff;
+            margin-right: 10px;
+            border-radius: 5px 0 5px 5px;
+        }
+        .message::after {
+            border-top: 15px solid color($colors, from);
+            border-right: 15px solid transparent;
+            left: 100%;
+        }
+    }
+    .to {
+        justify-content: start;
+        .message {
+            background-color: color($colors, to);
+            border-radius: 0 5px 5px 5px;
+            order: 2;
+            margin-left: 10px;            
+        }
+        .message::before {
+            border-top: 15px solid color($colors, to);
+            border-left: 15px solid transparent;
+            right: 100%;
+        }
+    }
+    .message {
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .message::after,
+    .message::before {
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0;
+    }
+}

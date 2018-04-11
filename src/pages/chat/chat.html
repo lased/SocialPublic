@@ -6,9 +6,11 @@
     <ion-row justify-content-center>
       <ion-col col-sm-12 col-md-8 no-padding>
         <ion-grid no-padding>
-          <ion-row *ngFor="let m of chat.messages;">
-            <ion-col col-6 [ngClass]="{from: !check(m.from.url, url), to: check(m.from.url, url)}">
-            {{ m.message.text }}
+          <ion-row *ngFor="let m of chat.messages; let i = index">
+            <ion-col col-9 [ngClass]="{from: m.from.url == url, to: m.from.url != url}">
+
+              <message [message]="m" [from]="m.from.url == url" [prevMessage]="i == 0 ? null : chat.messages[i-1]"></message>
+
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -17,10 +19,11 @@
   </ion-grid>
 
   <ion-grid no-padding class="chat">
-      <ion-row justify-content-center>
-        <ion-col col-sm-12 col-md-8 no-padding>
-          <chat-message [chat]="chatId"></chat-message>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-sm-12 col-md-8 no-padding>
+        <chat-message [chat]="chatId"></chat-message>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+

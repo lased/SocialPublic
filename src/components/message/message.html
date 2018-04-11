@@ -1,0 +1,12 @@
+<ion-grid>
+  <ion-row [ngClass]="{'from': from, 'to': !from}" align-items-center>
+    <ion-col col-auto class="message">
+      <span>{{ message.message.text }}</span>
+    </ion-col>
+    <ion-col col-auto>
+      <ng-template [ngIf]="prevMessage == null || prevMessage.from._id !== message.from._id">
+        <div class="avatar" [ngStyle]="{'background-image': 'url(' + getAvatar(apiUrl + message.from.avatar) + ')'}"></div>
+      </ng-template>
+    </ion-col>
+  </ion-row>
+</ion-grid>

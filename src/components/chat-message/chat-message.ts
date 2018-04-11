@@ -30,6 +30,7 @@ export class ChatMessageComponent {
       } else if (data instanceof HttpResponse) {
         if (data.body['code'] == 200) {
           this.message.reset();
+          this.message.setValue("");
           this.files = [];
         }
       }
