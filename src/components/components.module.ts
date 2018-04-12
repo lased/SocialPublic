@@ -17,6 +17,7 @@ import { ListFilesComponent } from './list-files/list-files';
 import { ViewFilesComponent } from './view-files/view-files';
 import { ChatMessageComponent } from './chat-message/chat-message';
 import { MessageComponent } from './message/message';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
 	declarations: [
@@ -37,7 +38,8 @@ import { MessageComponent } from './message/message';
 	],
 	imports: [
 		IonicModule,
-		EmojiPickerModule
+		EmojiPickerModule,
+		PipesModule
 	],
 	exports: [
 		LoginComponent,

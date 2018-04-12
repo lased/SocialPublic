@@ -14,8 +14,8 @@ export class MessageComponent {
   constructor() {    
   }
 
-  getAvatar(url){
-    return `'${url}'`;
+  isImage(file){
+    return /\.(jpg|jpeg|png|gif)$/.test(file);
   }
 
 }

@@ -1,11 +1,23 @@
 <ion-grid>
-  <ion-row [ngClass]="{'from': from, 'to': !from}" align-items-center>
+  <ion-row [ngClass]="{'from': from, 'to': !from}" margin-bottom>
     <ion-col col-auto class="message">
-      <span>{{ message.message.text }}</span>
+      <div>{{ message.message.text }}</div>
+      <ng-template ngFor let-f [ngForOf]="message.files">
+        <div style="margin-top: 10px;">
+          <img [src]="apiUrl + f.file" *ngIf="isImage(f.file); else elseBlock">
+          <ng-template #elseBlock>
+            <a [href]="apiUrl + f.file" target="_blank" icon-left>
+              <ion-icon name="md-clipboard"></ion-icon>
+              f.file
+            </a>
+          </ng-template>
+        </div>
+      </ng-template>
+      <div class="date">{{ message.date | datePipe:'message' }}</div>
     </ion-col>
     <ion-col col-auto>
       <ng-template [ngIf]="prevMessage == null || prevMessage.from._id !== message.from._id">
-        <div class="avatar" [ngStyle]="{'background-image': 'url(' + getAvatar(apiUrl + message.from.avatar) + ')'}"></div>
+        <div class="avatar" [ngStyle]="{'background-image': 'url(' + apiUrl + message.from.avatar + ')'}"></div>
       </ng-template>
     </ion-col>
   </ion-row>

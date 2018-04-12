@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BoxShadowDirective } from './box-shadow/box-shadow';
 @NgModule({
-	declarations: [BoxShadowDirective],
+	declarations: [BoxShadowDirective,
+	],
 	imports: [],
-	exports: [BoxShadowDirective]
+	exports: [BoxShadowDirective,
+	]
 })
-export class DirectivesModule {}
+export class DirectivesModule { }

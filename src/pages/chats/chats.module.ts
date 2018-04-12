@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { ChatsPage } from './chats';
 import { ComponentsModule } from '../../components/components.module';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(ChatsPage),
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
 })
 export class ChatsPageModule {}

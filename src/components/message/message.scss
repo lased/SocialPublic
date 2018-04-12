@@ -1,12 +1,26 @@
 message {
+    a{
+        color: inherit;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    .date {
+        position: absolute;
+        top: -20px;
+        color: #c5c5c5;
+        width: 100px;
+    }
     .avatar {
         width: 50px;
         height: 50px;
-        border-radius: 50%;
-        background-position: 50%;
     }
     .from {
+        margin-left: 0!important;
         justify-content: end;
+        .date{
+            text-align: right;
+            right: -15px;
+        }
         .message {
             background-color: color($colors, from);
             color: #fff;
@@ -21,11 +35,14 @@ message {
     }
     .to {
         justify-content: start;
+        .date{
+            left: -15px;
+        }
         .message {
             background-color: color($colors, to);
             border-radius: 0 5px 5px 5px;
             order: 2;
-            margin-left: 10px;            
+            margin-left: 10px;
         }
         .message::before {
             border-top: 15px solid color($colors, to);
@@ -36,6 +53,7 @@ message {
     .message {
         border-radius: 5px;
         padding: 5px;
+        margin-top: 30px;
     }
     .message::after,
     .message::before {

@@ -7,7 +7,8 @@
         <ion-list no-margin>
           <ion-item *ngFor="let c of chats; let i = index" (click)="openChat(i)" no-padding>
             <ion-avatar item-start>
-              <img [src]="apiUrl + c.avatar">
+              <div class="avatar" [ngStyle]="{'background-image': 'url(' + apiUrl + c.avatar + ')'}"></div>
+              
               <ng-template [ngIf]="c.state">
                 <div class="avatar-state circle" *ngIf="!c.platform"></div>
                 <ion-icon class="avatar-state" name="phone-portrait" *ngIf="c.platform"></ion-icon>
@@ -15,7 +16,7 @@
             </ion-avatar>
             <h2>{{ c.name }}</h2>
             <p>{{ c.messages[0].message.text }}</p>
-            <ion-note item-end>{{ getDate(c.messages[0].date) }}</ion-note>
+            <ion-note item-end>{{ c.messages[0].date | datePipe }}</ion-note>
           </ion-item>
         </ion-list>
       </ion-col>

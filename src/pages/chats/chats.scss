@@ -3,4 +3,8 @@ page-chats {
         border-left: 5px solid color($colors, primary);
         cursor: pointer;
     }
+    .avatar{
+        width: 70px;
+        height: 70px;
+    }
 }

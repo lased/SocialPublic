@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { ChatProvider } from '../../providers/chat/chat';
@@ -17,9 +17,11 @@ import { SocketProvider } from '../../providers/socket/socket';
   templateUrl: 'chat.html',
 })
 export class ChatPage {
+  @ViewChild(Content) content: Content;
   chat: any;
   url: any;
   chatId: any;
+  count: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -33,8 +35,15 @@ export class ChatPage {
     this.url = this.storageProvider.get('url');
   }
 
-  check(url1, url2) {
-    return url1 != url2;
+  scrollToBottom(num?) {
+    if (num) {
+      let content = this.content;
+      setTimeout(() => {
+        content.scrollToBottom(num);
+      }, num);
+    } else {
+      this.content.scrollToBottom();
+    }
   }
 
   ionViewCanLeave() {
@@ -48,8 +57,13 @@ export class ChatPage {
     this.socketProvider.emit('join chat', this.chatId);
 
     this.chatProvider.getMessages(this.chatId).subscribe(data => {
-      if (data['code'] == 200)
+      if (data['code'] == 200) {
         this.chat = data['message'];
+        console.log(this.chat.messages);
+        
+        this.count = this.chat.messages.length;
+        this.scrollToBottom(1);        
+      }
     });
 
     this.socketProvider.off('chat message');
