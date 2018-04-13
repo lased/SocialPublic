@@ -43,4 +43,10 @@ export class ChatProvider {
 
     return this.http.request(req);
   }
+
+  createChat(data){
+    data.token = this.token;
+    
+    return this.http.post(Config.UrlApi + '/api/user/chat', data);
+  }
 }

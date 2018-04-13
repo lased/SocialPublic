@@ -8,7 +8,7 @@
 
           <ion-grid no-padding>
             <ion-row *ngFor="let m of chat.messages; let i = index">
-              <ion-col col-9 [ngClass]="{from: m.from.url == url, to: m.from.url != url}">
+              <ion-col col-12 [ngClass]="{from: m.from.url == url, to: m.from.url != url}">
 
                 <message [message]="m" [from]="m.from.url == url" [prevMessage]="i == 0 ? null : chat.messages[i-1]"></message>
 
@@ -27,7 +27,7 @@
     <ion-grid no-padding class="chat">
         <ion-row justify-content-center>
           <ion-col col-sm-12 col-md-8 no-padding>
-            <chat-message [chat]="chatId"></chat-message>
+            <chat-message [chat]="chatId" (sendMessage)="sendMessage($event)"></chat-message>
           </ion-col>
         </ion-row>
       </ion-grid>

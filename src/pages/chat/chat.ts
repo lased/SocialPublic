@@ -46,6 +46,10 @@ export class ChatPage {
     }
   }
 
+  sendMessage(ev) {
+    this.scrollToBottom();    
+  }
+
   ionViewCanLeave() {
     this.socketProvider.emit('leave chat', this.chatId);
 
@@ -60,9 +64,9 @@ export class ChatPage {
       if (data['code'] == 200) {
         this.chat = data['message'];
         console.log(this.chat.messages);
-        
+
         this.count = this.chat.messages.length;
-        this.scrollToBottom(1);        
+        this.scrollToBottom(1);
       }
     });
 

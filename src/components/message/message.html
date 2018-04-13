@@ -1,10 +1,10 @@
-<ion-grid>
-  <ion-row [ngClass]="{'from': from, 'to': !from}" margin-bottom>
+<ion-grid style="padding: 0">
+  <ion-row [ngClass]="{'from': from, 'to': !from}" style="align-items: flex-start;" [ngStyle]="{'margin-bottom': prevMessage == null || prevMessage.from._id !== message.from._id ? '15px' : '30px'}">
     <ion-col col-auto class="message">
       <div>{{ message.message.text }}</div>
       <ng-template ngFor let-f [ngForOf]="message.files">
         <div style="margin-top: 10px;">
-          <img [src]="apiUrl + f.file" *ngIf="isImage(f.file); else elseBlock">
+          <img [src]="apiUrl + f.file" (click)="fullscreen()" *ngIf="isImage(f.file); else elseBlock" style="max-width: 225px">
           <ng-template #elseBlock>
             <a [href]="apiUrl + f.file" target="_blank" icon-left>
               <ion-icon name="md-clipboard"></ion-icon>

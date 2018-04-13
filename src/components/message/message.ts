@@ -14,6 +14,10 @@ export class MessageComponent {
   constructor() {    
   }
 
+  fullscreen(){
+    
+  }
+
   isImage(file){
     return /\.(jpg|jpeg|png|gif)$/.test(file);
   }

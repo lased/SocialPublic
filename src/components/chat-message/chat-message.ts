@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AlertController, PopoverController } from 'ionic-angular';
 
@@ -12,6 +12,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 })
 export class ChatMessageComponent {
   @Input('chat') chat;
+  @Output('sendMessage') sendMes = new EventEmitter();
   files: any = [];
   toggled: boolean = false;
   message: FormControl;
@@ -32,6 +33,7 @@ export class ChatMessageComponent {
           this.message.reset();
           this.message.setValue("");
           this.files = [];
+          this.sendMes.emit();
         }
       }
     })
