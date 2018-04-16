@@ -19,6 +19,7 @@ import { ChatMessageComponent } from './chat-message/chat-message';
 import { MessageComponent } from './message/message';
 import { PipesModule } from '../pipes/pipes.module';
 import { ListFriendsComponent } from './list-friends/list-friends';
+import { ChatsContextMenuComponent } from '../pages/chats/chats';
 
 @NgModule({
 	declarations: [
@@ -34,9 +35,10 @@ import { ListFriendsComponent } from './list-friends/list-friends';
 		AttachComponent,
 		ListFilesComponent,
 		ViewFilesComponent,
-    ChatMessageComponent,
-    MessageComponent,
-    ListFriendsComponent
+		ChatMessageComponent,
+		MessageComponent,
+		ListFriendsComponent,
+		ChatsContextMenuComponent
 	],
 	imports: [
 		IonicModule,
@@ -56,9 +58,10 @@ import { ListFriendsComponent } from './list-friends/list-friends';
 		AttachComponent,
 		ListFilesComponent,
 		ViewFilesComponent,
-    ChatMessageComponent,
-    MessageComponent,
-    ListFriendsComponent
+		ChatMessageComponent,
+		MessageComponent,
+		ListFriendsComponent,
+		ChatsContextMenuComponent
 	],
 	entryComponents: [
 		AvatarComponent,
@@ -67,7 +70,8 @@ import { ListFriendsComponent } from './list-friends/list-friends';
 		AttachComponent,
 		ListFilesComponent,
 		ViewFilesComponent,
-		ListFriendsComponent
+		ListFriendsComponent,
+		ChatsContextMenuComponent
 	],
 	providers: [
 	]

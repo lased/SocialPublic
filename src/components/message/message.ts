@@ -11,7 +11,7 @@ export class MessageComponent {
   @Input('from') from;
   apiUrl: string = Config.UrlApi;
 
-  constructor() {    
+  constructor() {        
   }
 
   fullscreen(){

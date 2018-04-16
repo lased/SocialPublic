@@ -1,24 +1,40 @@
 <ion-grid style="padding: 0">
-  <ion-row [ngClass]="{'from': from, 'to': !from}" style="align-items: flex-start;" [ngStyle]="{'margin-bottom': prevMessage == null || prevMessage.from._id !== message.from._id ? '15px' : '30px'}">
-    <ion-col col-auto class="message">
-      <div>{{ message.message.text }}</div>
-      <ng-template ngFor let-f [ngForOf]="message.files">
-        <div style="margin-top: 10px;">
-          <img [src]="apiUrl + f.file" (click)="fullscreen()" *ngIf="isImage(f.file); else elseBlock" style="max-width: 225px">
-          <ng-template #elseBlock>
-            <a [href]="apiUrl + f.file" target="_blank" icon-left>
-              <ion-icon name="md-clipboard"></ion-icon>
-              f.file
-            </a>
+  <ng-template [ngIf]="from != null">
+    <ion-row [ngClass]="{'from': from, 'to': !from}" style="align-items: flex-start;" margin-bottom>
+      <ion-col col-auto class="message">
+        <div>{{ message.message.text }}</div>
+        <ng-template ngFor let-f [ngForOf]="message.files">
+          <div style="margin-top: 10px;">
+            <img [src]="apiUrl + f.file" (click)="fullscreen()" *ngIf="isImage(f.file); else elseBlock" style="max-width: 225px">
+            <ng-template #elseBlock>
+              <a [href]="apiUrl + f.file" target="_blank" icon-left>
+                <ion-icon name="md-clipboard"></ion-icon>
+                f.file
+              </a>
+            </ng-template>
+          </div>
+        </ng-template>
+        <div class="date">{{ message.date | datePipe:'message' }}</div>
+      </ion-col>
+      <ion-col col-auto>
+        <ng-template [ngIf]="from != null">
+          <ng-template [ngIf]="prevMessage == null || prevMessage.from._id !== message.from._id">
+            <div class="avatar" [ngStyle]="{'background-image': 'url(' + apiUrl + message.from.avatar + ')'}"></div>
           </ng-template>
-        </div>
-      </ng-template>
-      <div class="date">{{ message.date | datePipe:'message' }}</div>
-    </ion-col>
-    <ion-col col-auto>
-      <ng-template [ngIf]="prevMessage == null || prevMessage.from._id !== message.from._id">
-        <div class="avatar" [ngStyle]="{'background-image': 'url(' + apiUrl + message.from.avatar + ')'}"></div>
-      </ng-template>
-    </ion-col>
-  </ion-row>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+
+  <ng-template [ngIf]="from == null">
+    <ion-row class="info" justify-content-center>
+      <ion-col col-auto class="message" margin-bottom>
+        <div>{{ message.message.text }}</div>
+      </ion-col>
+      <ion-col col-auto>
+        <div class="date">{{ message.date | datePipe:'message' }}</div>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+
 </ion-grid>

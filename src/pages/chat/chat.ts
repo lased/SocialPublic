@@ -35,6 +35,15 @@ export class ChatPage {
     this.url = this.storageProvider.get('url');
   }
 
+  check(message) {
+    console.log(message.from);
+    
+    if (message.from !== undefined)
+      return message.from.url == this.url
+    else
+      return null
+  }
+
   scrollToBottom(num?) {
     if (num) {
       let content = this.content;
@@ -47,7 +56,7 @@ export class ChatPage {
   }
 
   sendMessage(ev) {
-    this.scrollToBottom();    
+    this.scrollToBottom();
   }
 
   ionViewCanLeave() {

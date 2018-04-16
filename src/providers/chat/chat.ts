@@ -15,8 +15,12 @@ export class ChatProvider {
     this.token = this.storageProvider.get('token');
   }
 
-  getMessages(chat){    
-    return this.http.get(Config.UrlApi + '/api/user/chat?token=' + this.token + '&chat=' + chat);    
+  removeChat(chat) {
+    return this.http.delete(Config.UrlApi + '/api/user/chat?token=' + this.token + '&chat=' + chat);
+  }
+
+  getMessages(chat) {
+    return this.http.get(Config.UrlApi + '/api/user/chat?token=' + this.token + '&chat=' + chat);
   }
 
   getChats() {
@@ -44,9 +48,9 @@ export class ChatProvider {
     return this.http.request(req);
   }
 
-  createChat(data){
+  createChat(data) {
     data.token = this.token;
-    
+
     return this.http.post(Config.UrlApi + '/api/user/chat', data);
   }
 }
