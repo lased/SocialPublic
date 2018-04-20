@@ -77,26 +77,45 @@ export class ChatsPage {
     this.modalCtrl.create(ListFriendsComponent).present();
   }
 
-  ionViewDidLoad() {
+  getChats(){
     this.chatProvider.getChats().subscribe(data => {
       if (data['code'] == 200) {
         this.chats = data['message']['chats'];
       }
     });
-    
+  }
+
+  ionViewDidLoad() {
+    this.getChats();
+
+    this.socketProvider.off('chatsPageMessage');
+    this.socketProvider.on('chatsPageMessage').subscribe(msg => {   
+      this.getChats();
+    });
+
+    this.socketProvider.off('createChat');
+    this.socketProvider.on('createChat').subscribe(data => {
+      this.getChats();
+
+      let chats = JSON.parse(this.storageProvider.get('chats'));
+
+      chats.push(data);
+      this.storageProvider.set('chats', JSON.stringify(chats))
+    });
+        
     this.socketProvider.off('deleteChat');
     this.socketProvider.on('deleteChat').subscribe(data => {
       let chats = JSON.parse(this.storageProvider.get('chats'));
       let index = chats.indexOf(data);
 
       chats.splice(index, 1);
-      this.storageProvider.set('chats', chats);
+      this.storageProvider.set('chats', JSON.stringify(chats));
 
       index = this.chats.findIndex(el => {
         return el._id == data;
       });
       this.chats.splice(index, 1);            
-    })
+    });
   }
 
 }

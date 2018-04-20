@@ -33,8 +33,7 @@ export class ListFriendsComponent {
 
   selectUsers() {
     this.chatProvider.createChat({ users: this.users, name: this.name }).subscribe(data => {
-      console.log(data);
-      
+      this.viewCtrl.dismiss();
     })
   }
 

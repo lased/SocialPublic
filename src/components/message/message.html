@@ -17,10 +17,8 @@
         <div class="date">{{ message.date | datePipe:'message' }}</div>
       </ion-col>
       <ion-col col-auto>
-        <ng-template [ngIf]="from != null">
-          <ng-template [ngIf]="prevMessage == null || prevMessage.from._id !== message.from._id">
-            <div class="avatar" [ngStyle]="{'background-image': 'url(' + apiUrl + message.from.avatar + ')'}"></div>
-          </ng-template>
+        <ng-template [ngIf]="prevMessage == null || prevMessage.from == null || prevMessage.from._id !== message.from._id">
+          <div class="avatar" [ngStyle]="{'background-image': 'url(' + apiUrl + message.from.avatar + ')'}"></div>
         </ng-template>
       </ion-col>
     </ion-row>

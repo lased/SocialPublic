@@ -17,6 +17,7 @@
             <h2>{{ c.name }}</h2>
             <p>{{ c.messages[0].message.text }}</p>
             <ion-note item-end>{{ c.messages[0].date | datePipe }}</ion-note>
+            <ion-badge item-end *ngIf="c.unread > 0">{{ c.unread }}</ion-badge>
           </ion-item>
         </ion-list>
       </ion-col>

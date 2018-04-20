@@ -35,10 +35,8 @@ export class ChatPage {
     this.url = this.storageProvider.get('url');
   }
 
-  check(message) {
-    console.log(message.from);
-    
-    if (message.from !== undefined)
+  check(message) {    
+    if (message.from !== undefined && message.from !== null )
       return message.from.url == this.url
     else
       return null
@@ -72,8 +70,6 @@ export class ChatPage {
     this.chatProvider.getMessages(this.chatId).subscribe(data => {
       if (data['code'] == 200) {
         this.chat = data['message'];
-        console.log(this.chat.messages);
-
         this.count = this.chat.messages.length;
         this.scrollToBottom(1);
       }
@@ -82,6 +78,7 @@ export class ChatPage {
     this.socketProvider.off('chat message');
     this.socketProvider.on('chat message').subscribe(msg => {
       this.chat.messages.push(msg);
+      this.scrollToBottom(1);
     });
   }
 
