@@ -55,6 +55,7 @@ export class LoginComponent extends FormClass implements OnInit {
         this.storageProvider.set('token', data.token);
         this.storageProvider.set('state', data.state);
         this.storageProvider.set('friends', JSON.stringify(data.friends));
+        this.storageProvider.set('chats', JSON.stringify(data.chats));
 
         this.socketProvider.connect();
         this.navCtrl.setRoot('NewsPage');          

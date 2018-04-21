@@ -8,7 +8,7 @@
     <div class="avatar" [ngStyle]="{'background-image': 'url(' + getAvatar() + ')'}"></div>
     <h4 text-center>{{ storageProvider.get('surname') }} {{ storageProvider.get('name') }}</h4>
   </ion-header>
-  <ion-content class="no-scroll">
+  <ion-content>
     <ion-list no-lines>
       <menus [nav]="nav"></menus>
     </ion-list>

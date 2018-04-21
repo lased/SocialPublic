@@ -23,6 +23,7 @@ export class MenusComponent {
       { page: 'ProfilePage', title: 'Профиль', icon: 'ios-person-outline' },    
       { page: 'FriendsPage', title: 'Друзья', icon: 'ios-contacts-outline' },
       { page: 'ChatsPage', title: 'Сообщения', icon: 'ios-mail-outline' },
+      { page: 'GroupsPage', title: 'Группы', icon: 'ios-people-outline' },      
       { page: 'PhotosPage', title: 'Фотографии', icon: 'ios-camera-outline' },        
       { page: 'NewsPage', title: 'Новости', icon: 'ios-paper-outline' },
       { page: 'SettingsPage', title: 'Настройки', icon: 'ios-settings-outline' },
