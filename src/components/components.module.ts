@@ -38,7 +38,7 @@ import { ChatsContextMenuComponent } from '../pages/chats/chats';
 		ChatMessageComponent,
 		MessageComponent,
 		ListFriendsComponent,
-		ChatsContextMenuComponent
+		ChatsContextMenuComponent,
 	],
 	imports: [
 		IonicModule,
@@ -61,7 +61,7 @@ import { ChatsContextMenuComponent } from '../pages/chats/chats';
 		ChatMessageComponent,
 		MessageComponent,
 		ListFriendsComponent,
-		ChatsContextMenuComponent
+		ChatsContextMenuComponent,
 	],
 	entryComponents: [
 		AvatarComponent,
@@ -71,7 +71,7 @@ import { ChatsContextMenuComponent } from '../pages/chats/chats';
 		ListFilesComponent,
 		ViewFilesComponent,
 		ListFriendsComponent,
-		ChatsContextMenuComponent
+		ChatsContextMenuComponent,
 	],
 	providers: [
 	]

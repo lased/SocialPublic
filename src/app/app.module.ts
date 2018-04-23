@@ -14,6 +14,7 @@ import { SocketProvider } from '../providers/socket/socket';
 import { AuthProvider } from '../providers/auth/auth';
 import { StorageProvider } from '../providers/storage/storage';
 import { ChatProvider } from '../providers/chat/chat';
+import { GroupProvider } from '../providers/group/group';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ChatProvider } from '../providers/chat/chat';
     SocketProvider,
     AuthProvider,
     StorageProvider,
-    ChatProvider
+    ChatProvider,
+    GroupProvider
   ]
 })
 export class AppModule {}
