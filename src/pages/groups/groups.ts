@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 import { AuthProvider } from '../../providers/auth/auth';
 import { Auth } from '../../decorators/auth';
 import { GroupProvider } from '../../providers/group/group';
+import { Config } from '../../config';
+import { StorageProvider } from '../../providers/storage/storage';
 
 @Auth()
 @IonicPage()
@@ -13,20 +15,48 @@ import { GroupProvider } from '../../providers/group/group';
 })
 export class GroupsPage {
   groups: any;
+  urlApi: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private authProvider: AuthProvider,
     private alertCtrl: AlertController,
-    private groupProvider: GroupProvider
+    private groupProvider: GroupProvider,
+    private storageProvider: StorageProvider,
   ) {
+    this.urlApi = Config.UrlApi;
+  }
+
+  leaveGroup(id) {
+    this.groupProvider.leaveGroup(id).subscribe(data => {
+      if (data['code'] == 200)
+        this.getGroups();
+    })
+  }
+
+  goToGroup(url) {
+    this.navCtrl.push('GroupPage', { url });
   }
 
   getGroups() {
     this.groupProvider.getUserGroups().subscribe(data => {
-      if (data['code'] == 200)
+      if (data['code'] == 200){
         this.groups = data['message'];
+
+        for (let i = 0; i < this.groups.length; i++) {
+          for (let j = 0; j < this.groups[i].users.length; j++) {
+            let user = this.groups[i].users[j];
+
+            if(user.user.url == this.storageProvider.get('url')){
+              this.groups[i].main = true;
+              break;
+            }
+
+            this.groups[i].main = false;
+          }          
+        }        
+      }
     })
   }
 

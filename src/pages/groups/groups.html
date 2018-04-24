@@ -8,4 +8,25 @@
         </button>
     </ion-fab>
 
+    <ion-grid>
+        <ion-row>
+            <ion-col col-sm-12 col-md-3 *ngFor="let g of groups">
+                <ion-card>
+
+                    <ion-card-header no-padding margin-bottom (click)="goToGroup(g.url)" style="cursor: pointer">
+                        <img [src]="urlApi + g.avatar">
+                    </ion-card-header>
+
+                    <ion-card-content>
+                        {{ g.name }}
+                        <button ion-button full (click)="leaveGroup(g._id)" *ngIf="g.main == true">
+                            Покинуть группу
+                        </button>
+                    </ion-card-content>
+
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
 </ion-content>

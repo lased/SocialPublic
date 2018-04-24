@@ -17,13 +17,29 @@ export class GroupProvider {
     this.urlApi = Config.UrlApi;
   }
 
+  getGroup(url) {
+    return this.http.get(this.urlApi + '/api/group?url=' + url);
+  }
+
+  joinGroup(id) {
+    return this.http.put(this.urlApi + '/api/user/groups', { token: this.token, id });
+  }
+
+  deleteGroup(id) {
+
+  }
+
+  leaveGroup(id) {
+    return this.http.delete(this.urlApi + '/api/user/groups?token=' + this.token + '&id=' + id);
+  }
+
   getUserGroups() {
     return this.http.get(this.urlApi + '/api/user/groups?token=' + this.token);
   }
 
   createGroup(params) {
     params.token = this.token;
-    
+
     return this.http.post(this.urlApi + '/api/group', params);
   }
 }
