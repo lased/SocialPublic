@@ -20,6 +20,7 @@ import { MessageComponent } from './message/message';
 import { PipesModule } from '../pipes/pipes.module';
 import { ListFriendsComponent } from './list-friends/list-friends';
 import { ChatsContextMenuComponent } from '../pages/chats/chats';
+import { PopoverComponent } from './popover/popover';
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import { ChatsContextMenuComponent } from '../pages/chats/chats';
 		MessageComponent,
 		ListFriendsComponent,
 		ChatsContextMenuComponent,
+    PopoverComponent,
 	],
 	imports: [
 		IonicModule,
@@ -62,6 +64,7 @@ import { ChatsContextMenuComponent } from '../pages/chats/chats';
 		MessageComponent,
 		ListFriendsComponent,
 		ChatsContextMenuComponent,
+    PopoverComponent,
 	],
 	entryComponents: [
 		AvatarComponent,
@@ -72,6 +75,7 @@ import { ChatsContextMenuComponent } from '../pages/chats/chats';
 		ViewFilesComponent,
 		ListFriendsComponent,
 		ChatsContextMenuComponent,
+		PopoverComponent
 	],
 	providers: [
 	]

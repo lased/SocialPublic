@@ -15,11 +15,12 @@
 
                     <ion-card-header no-padding margin-bottom (click)="goToGroup(g.url)" style="cursor: pointer">
                         <img [src]="urlApi + g.avatar">
+                        <div text-center>{{ g.name }}</div>
                     </ion-card-header>
 
                     <ion-card-content>
-                        {{ g.name }}
-                        <button ion-button full (click)="leaveGroup(g._id)" *ngIf="g.main == true">
+                        <div text-center>Участников: {{ g.users.length }}</div>
+                        <button ion-button full (click)="leaveGroup(g._id)" *ngIf="g.main != true">
                             Покинуть группу
                         </button>
                     </ion-card-content>

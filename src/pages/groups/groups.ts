@@ -90,7 +90,10 @@ export class GroupsPage {
                 buttons: ['OK']
               }).present();
             } else {
-              this.groupProvider.createGroup(data).subscribe();
+              this.groupProvider.createGroup(data).subscribe(data => {
+                if(data['code'] == 200)
+                  this.getGroups();
+              });
             }
           }
         }

@@ -3,6 +3,7 @@ import { NavParams, ViewController, AlertController, LoadingController } from 'i
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 import { UserProvider } from '../../providers/user/user';
+import { GroupProvider } from '../../providers/group/group';
 
 @Component({
   selector: 'preview-image',
@@ -13,14 +14,19 @@ export class PreviewImageComponent {
   imageFile: any;
   isMultiple: boolean = false;
   photos: any;
+  type: string;
+  id: string;
 
   constructor(
     private navParams: NavParams,
     private userProvider: UserProvider,
+    private groupProvider: GroupProvider,
     private viewCtrl: ViewController,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
   ) {
+    this.type = this.navParams.get('type');
+    this.id = this.navParams.get('id');
     this.imageFile = this.navParams.get('image') || this.navParams.get('images');
 
     let reader = new FileReader(), t = this;
@@ -58,7 +64,9 @@ export class PreviewImageComponent {
 
     loader.present();
     if (!this.isMultiple && this.imageFile.length == undefined) {
-      this.userProvider.setAvatar(this.imageFile).subscribe(data => {
+      let sub = this.type == 'group' ? this.groupProvider.setAvatar(this.id, this.imageFile) : this.userProvider.setAvatar(this.imageFile);
+      
+      sub.subscribe(data => {
         if (data.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round(100 * data.loaded / data.total);
           loader.setContent(percentDone + '% выполнено');
@@ -69,9 +77,9 @@ export class PreviewImageComponent {
           if (data.body['code'] == 200) {
             message = 'Успешно выполнено';
             this.close();
-          } else if(data.body['code'] == 302){
-            message = 'Данная фотография уже загружена';  
-            this.close();          
+          } else if (data.body['code'] == 302) {
+            message = 'Данная фотография уже загружена';
+            this.close();
           } else {
             message = 'Произошла ошибка';
           }
@@ -82,7 +90,7 @@ export class PreviewImageComponent {
           }).present();
         }
       })
-    } else {      
+    } else {
       this.userProvider.addPhotos(this.imageFile).subscribe(data => {
         if (data.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round(100 * data.loaded / data.total);
@@ -104,7 +112,7 @@ export class PreviewImageComponent {
           }).present();
         }
       })
-    }    
+    }
   }
 
   close() {

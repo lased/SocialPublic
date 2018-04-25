@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, ModalController, AlertController } from 'ionic-angular';
+import { ViewController, ModalController, AlertController, NavParams } from 'ionic-angular';
 
 import { PreviewImageComponent } from '../../preview-image/preview-image';
 
@@ -12,6 +12,7 @@ export class AvatarComponent {
     private viewCtrl: ViewController,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
+    private navParams: NavParams
   ) {
   }
 
@@ -31,7 +32,7 @@ export class AvatarComponent {
   }
 
   modalImage(image) {
-    let modal = this.modalCtrl.create(PreviewImageComponent, { image });
+    let modal = this.modalCtrl.create(PreviewImageComponent, { image, type: this.navParams.get('type'), id: this.navParams.get('id') });
 
     modal.present();
   }

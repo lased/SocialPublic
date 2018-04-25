@@ -1,0 +1,5 @@
+<ion-list no-margin>
+  <button ion-item *ngFor="let d of data" (click)="d.handler(); close()">
+    {{ d.name }}
+  </button>
+</ion-list>

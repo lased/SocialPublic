@@ -1,20 +1,4 @@
-<ion-header>
-  <ion-navbar>
-    <ion-buttons end>
-      <button ion-button icon-only clear (click)="close()">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>
-      <ng-template [ngIf]="isMultiple">
-        Выбранные изображения
-      </ng-template>
-      <ng-template [ngIf]="!isMultiple">
-        Выбранное изображение
-      </ng-template>
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<header [title]="isMultiple ? 'Выбранные изображения' : 'Выбранное изображение'" type="modal"></header>
 
 <ion-content>
   <ng-template ngFor let-img [ngForOf]="images">
