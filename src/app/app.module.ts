@@ -15,6 +15,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { StorageProvider } from '../providers/storage/storage';
 import { ChatProvider } from '../providers/chat/chat';
 import { GroupProvider } from '../providers/group/group';
+import { SheduleProvider } from '../providers/shedule/shedule';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { GroupProvider } from '../providers/group/group';
     AuthProvider,
     StorageProvider,
     ChatProvider,
-    GroupProvider
+    GroupProvider,
+    SheduleProvider
   ]
 })
 export class AppModule {}

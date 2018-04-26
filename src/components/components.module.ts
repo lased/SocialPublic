@@ -21,6 +21,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ListFriendsComponent } from './list-friends/list-friends';
 import { ChatsContextMenuComponent } from '../pages/chats/chats';
 import { PopoverComponent } from './popover/popover';
+import { ManageSheduleComponent } from './manage-shedule/manage-shedule';
 
 @NgModule({
 	declarations: [
@@ -40,7 +41,8 @@ import { PopoverComponent } from './popover/popover';
 		MessageComponent,
 		ListFriendsComponent,
 		ChatsContextMenuComponent,
-    PopoverComponent,
+		PopoverComponent,
+		ManageSheduleComponent,
 	],
 	imports: [
 		IonicModule,
@@ -64,7 +66,8 @@ import { PopoverComponent } from './popover/popover';
 		MessageComponent,
 		ListFriendsComponent,
 		ChatsContextMenuComponent,
-    PopoverComponent,
+		PopoverComponent,
+		ManageSheduleComponent,
 	],
 	entryComponents: [
 		AvatarComponent,
@@ -75,7 +78,8 @@ import { PopoverComponent } from './popover/popover';
 		ViewFilesComponent,
 		ListFriendsComponent,
 		ChatsContextMenuComponent,
-		PopoverComponent
+		PopoverComponent,
+		ManageSheduleComponent
 	],
 	providers: [
 	]

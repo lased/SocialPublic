@@ -9,6 +9,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { PopoverComponent } from '../../components/popover/popover';
 import { AvatarComponent } from '../../components/popovers/avatar/avatar';
 import { SocketProvider } from '../../providers/socket/socket';
+import { ManageSheduleComponent } from '../../components/manage-shedule/manage-shedule';
 
 @Auth('all')
 @IonicPage({
@@ -40,6 +41,16 @@ export class GroupPage {
     this.urlApi = Config.UrlApi;
   }
 
+  isEmptyObject(obj) {
+    if (!obj) return true;
+
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+
+    return true;
+  }
+
   openPopover(ev) {
     this.popoverCtrl.create(PopoverComponent, {
       data: [
@@ -56,6 +67,33 @@ export class GroupPage {
           }
         },
         {
+          name: 'Расписание',
+          handler: () => {
+            this.popoverCtrl.create(PopoverComponent, {
+              data: [
+                {
+                  name: 'Импортировать расписание',
+                  handler: () => {
+                    this.importShedule();
+                  }
+                },
+                {
+                  name: 'Управление расписанием',
+                  handler: () => {
+                    this.manageShedule();
+                  }
+                },
+                {
+                  name: 'Экспортировать расписание',
+                  handler: () => {
+                    this.exportShedule();
+                  }
+                },
+              ]
+            }).present({ ev });
+          }
+        },
+        {
           name: 'Удалить группу',
           handler: () => {
             this.deleteGroup();
@@ -63,6 +101,24 @@ export class GroupPage {
         }
       ]
     }).present({ ev })
+  }
+
+  manageShedule() {
+    let shedule = this.isEmptyObject(this.group.shedule) ? null : this.group.shedule;
+    let modal = this.modalCtrl.create(ManageSheduleComponent, {
+      id: this.group._id,
+      shedule
+    })
+    
+    modal.present();
+  }
+
+  importShedule() {
+
+  }
+
+  exportShedule() {
+
   }
 
   changeAvatarGroup() {
@@ -86,6 +142,11 @@ export class GroupPage {
           name: 'url',
           placeholder: 'Адрес',
           value: this.group.url
+        },
+        {
+          name: 'description',
+          placeholder: 'Описание',
+          value: this.group.description
         }
       ],
       buttons: [
@@ -109,7 +170,7 @@ export class GroupPage {
               this.alertCtrl.create(params).present();
             } else {
               this.groupProvider.updateDataGroup(data).subscribe(data => {
-                if (data['code'] == 200){
+                if (data['code'] == 200) {
                   this.group.name = data['message'].name;
                 }
               });

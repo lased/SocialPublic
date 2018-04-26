@@ -4,7 +4,9 @@
 <ion-content padding>
   <ion-grid *ngIf="!!group._id">
     <ion-row justify-content-around>
-      <ion-col col-8 box-shadow>8</ion-col>
+      <ion-col col-8 box-shadow>        
+        <div text-center *ngIf="isEmptyObject(group.shedule)">Расписание не загружено</div>
+      </ion-col>
       <ion-col col-3 box-shadow>
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + urlApi + group.avatar + ')'}"></div>
         <ng-template [ngIf]="authProvider.isLoggedIn()">

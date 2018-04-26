@@ -72,6 +72,10 @@ export class GroupsPage {
         {
           name: 'name',
           placeholder: 'Название'
+        },
+        {
+          name: 'description',
+          placeholder: 'Описание'
         }
       ],
       buttons: [
