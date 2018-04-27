@@ -14,6 +14,7 @@ export class BoxShadowDirective {
     
     this.element['style']['box-shadow'] = '2px 2px 10px gray';
     this.element['style']['border-radius'] = '10px';
+    this.element['style']['overflow'] = 'hidden';
   }
 
 }

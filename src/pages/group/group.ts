@@ -9,7 +9,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { PopoverComponent } from '../../components/popover/popover';
 import { AvatarComponent } from '../../components/popovers/avatar/avatar';
 import { SocketProvider } from '../../providers/socket/socket';
-import { ManageSheduleComponent } from '../../components/manage-shedule/manage-shedule';
+import { ManageSheduleComponent, FullSheduleComponent } from '../../components/manage-shedule/manage-shedule';
 import { IShedule } from '../../providers/shedule/shedule.model';
 import { SheduleProvider } from '../../providers/shedule/shedule';
 
@@ -54,6 +54,10 @@ export class GroupPage {
     this.urlApi = Config.UrlApi;
 
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+  }
+
+  openFullShedule() {
+    this.modalCtrl.create(FullSheduleComponent, { shedule: this.group.shedule }).present();
   }
 
   moment() {
@@ -166,7 +170,7 @@ export class GroupPage {
   }
 
   importShedule(ev) {
-    let file =ev.target.files[0];
+    let file = ev.target.files[0];
 
     if (!file) {
       return;
@@ -175,9 +179,9 @@ export class GroupPage {
     let reader = new FileReader();
     let t = this;
 
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       let shedule: IShedule = JSON.parse(this.result);
-      
+
       t.group.shedule = shedule;
       t.sheduleProvider.import(t.group._id, shedule).subscribe();
       t.moment();

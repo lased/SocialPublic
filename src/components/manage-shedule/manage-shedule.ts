@@ -5,6 +5,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IShedule } from '../../providers/shedule/shedule.model';
 import { SheduleProvider } from '../../providers/shedule/shedule';
 
+const dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+const weeks = {
+  topWeek: 'Верхняя неделя',
+  lowerWeek: 'Нижняя неделя'
+};
+
 @Component({
   selector: 'manage-shedule',
   templateUrl: 'manage-shedule.html'
@@ -28,11 +34,8 @@ export class ManageSheduleComponent {
   ) {
     this.groupId = this.navParams.get('id');
     this.shedule = this.navParams.get('shedule');
-    this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-    this.weeks = {
-      topWeek: 'Верхняя неделя',
-      lowerWeek: 'Нижняя неделя'
-    };
+    this.dayWeek = dayWeek;
+    this.weeks = weeks;
 
     if (this.shedule == null)
       this.shedule = {
@@ -112,12 +115,12 @@ export class ManageSheduleComponent {
         lowerWeek: this.shedule.lowerWeek,
         topWeek: this.shedule.topWeek
       }).subscribe();
-      this.sheduleForm.reset();      
+      this.sheduleForm.reset();
     }
   }
 
-  removeShedule(type, index){
-    this.shedule[type].splice(index, 1);    
+  removeShedule(type, index) {
+    this.shedule[type].splice(index, 1);
     this.sheduleProvider.addShedule(this.groupId, {
       lowerWeek: this.shedule.lowerWeek,
       topWeek: this.shedule.topWeek
@@ -140,4 +143,24 @@ export class ManageSheduleComponent {
     });
   }
 
+}
+
+@Component({
+  selector: 'full-shedule',
+  templateUrl: 'full-shedule.html'
+})
+export class FullSheduleComponent {
+  shedule: any;
+  weeks: any;
+  dayWeek: any; 
+
+  constructor(
+    private navParams: NavParams
+  ) {
+    this.shedule = this.navParams.get('shedule');
+    console.log(this.shedule);
+    
+    this.weeks = weeks;
+    this.dayWeek = dayWeek;
+  }
 }

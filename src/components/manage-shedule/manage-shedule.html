@@ -87,7 +87,7 @@
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'shedule'">
-      <ion-item-group *ngFor="let w of weeks| objNgFor">
+      <ion-item-group *ngFor="let w of weeks | objNgFor">
         <ion-item-divider color="light">{{ w.value }}</ion-item-divider>
         <ng-template ngFor let-item [ngForOf]="shedule[w.key]" let-i="index">
           <ion-list-header *ngIf="item != null">
@@ -95,8 +95,8 @@
           </ion-list-header>
           <ion-item *ngFor="let s of item; let indx = index" text-center>
             <div item-start>
-                {{s.pair}} пара<br>
-                {{s.startTime}} - {{s.endTime}}
+              {{s.pair}} пара
+              <br> {{s.startTime}} - {{s.endTime}}
             </div>
             <h2>{{ s.subject }}</h2>
             <h3>{{ s.teacher }}</h3>
@@ -113,4 +113,3 @@
   </div>
 
 </ion-content>
-
