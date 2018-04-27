@@ -24,4 +24,8 @@ export class SheduleProvider {
   addShedule(groupId, shedule){
     return this.http.post(this.urlApi + '/api/group/shedule', { token: this.token, groupId, shedule });        
   }
+
+  import(groupId, shedule){
+    return this.http.put(this.urlApi + '/api/group/shedule', { token: this.token, groupId, shedule });        
+  }
 }

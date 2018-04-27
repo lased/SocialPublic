@@ -17,6 +17,7 @@ export class ManageSheduleComponent {
   shedule: IShedule;
   menu: string = 'shedule';
   dayWeek: Array<string>;
+  weeks: any;
   error: string = '';
 
   constructor(
@@ -28,6 +29,10 @@ export class ManageSheduleComponent {
     this.groupId = this.navParams.get('id');
     this.shedule = this.navParams.get('shedule');
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+    this.weeks = {
+      topWeek: 'Верхняя неделя',
+      lowerWeek: 'Нижняя неделя'
+    };
 
     if (this.shedule == null)
       this.shedule = {
@@ -44,7 +49,7 @@ export class ManageSheduleComponent {
 
     this.shedule.pairs.sort((a, b) => {
       return a.number - b.number;
-    })
+    });
   }
 
   addPair() {
@@ -66,6 +71,7 @@ export class ManageSheduleComponent {
         endTime: pair.endTime
       });
       this.sheduleProvider.addPair(this.groupId, this.shedule.pairs).subscribe();
+      this.pairsForm.reset();
     }
   }
 
@@ -90,8 +96,14 @@ export class ManageSheduleComponent {
     if (index != -1) {
       this.error = 'Данная пара существует'
     } else {
+      index = this.shedule.pairs.findIndex(el => {
+        return el.number == shedule.pair;
+      });
+
       this.shedule[shedule.week][shedule.dayWeek].push({
         pair: shedule.pair,
+        startTime: this.shedule.pairs[index].startTime,
+        endTime: this.shedule.pairs[index].endTime,
         subject: shedule.subject,
         teacher: shedule.teacher,
         lectureHall: shedule.lectureHall
@@ -100,11 +112,16 @@ export class ManageSheduleComponent {
         lowerWeek: this.shedule.lowerWeek,
         topWeek: this.shedule.topWeek
       }).subscribe();
+      this.sheduleForm.reset();      
     }
   }
 
-  removeShedule(){
-    
+  removeShedule(type, index){
+    this.shedule[type].splice(index, 1);    
+    this.sheduleProvider.addShedule(this.groupId, {
+      lowerWeek: this.shedule.lowerWeek,
+      topWeek: this.shedule.topWeek
+    }).subscribe();
   }
 
   ngOnInit() {

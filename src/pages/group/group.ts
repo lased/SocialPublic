@@ -10,6 +10,8 @@ import { PopoverComponent } from '../../components/popover/popover';
 import { AvatarComponent } from '../../components/popovers/avatar/avatar';
 import { SocketProvider } from '../../providers/socket/socket';
 import { ManageSheduleComponent } from '../../components/manage-shedule/manage-shedule';
+import { IShedule } from '../../providers/shedule/shedule.model';
+import { SheduleProvider } from '../../providers/shedule/shedule';
 
 @Auth('all')
 @IonicPage({
@@ -26,6 +28,16 @@ export class GroupPage {
   inGroup: boolean;
   main: boolean;
 
+  menu: string = 'now';
+
+  timer: any;
+  timeNow: string;
+  weeks: boolean;
+  currentShedule: any;
+  currentSheduleOfDay: any;
+  day: number;
+  dayWeek: Array<string>;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,9 +48,44 @@ export class GroupPage {
     private popoverCtrl: PopoverController,
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
+    private sheduleProvider: SheduleProvider,
   ) {
     this.url = this.navParams.get('url');
     this.urlApi = Config.UrlApi;
+
+    this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+  }
+
+  moment() {
+    let now = new Date();
+    let startYear = now.getMonth() <= 7 ? now.getFullYear() - 1 : now.getFullYear();
+    let startDate = new Date(startYear + '-9-1');
+    let diff;
+
+    startDate = startDate.getDay() != 1 ? new Date(+startDate - (startDate.getDay() - 1) * 86400000) : startDate;
+    diff = +now - +startDate;
+
+    this.weeks = Boolean(Math.floor(diff / 604800000 + 1) % 2);
+    this.timeNow = `${now.getHours()}:${now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()}`;
+
+    let index = -1;
+    let weekNow = this.weeks ? 'topWeek' : 'lowerWeek';
+
+    this.day = now.getDay() == 0 ? 6 : now.getDay() - 1;
+    this.currentSheduleOfDay = this.group.shedule[weekNow][this.day];
+
+    if (this.group.shedule[weekNow][this.day] != undefined)
+      index = this.group.shedule[weekNow][this.day].findIndex(el => {
+        if (el != null)
+          return this.timeNow >= el.startTime && this.timeNow <= el.endTime || this.timeNow < el.startTime;
+        return 0;
+      });
+
+    if (index == -1) {
+      this.currentShedule = null;
+    } else {
+      this.currentShedule = this.group.shedule[weekNow][this.day][index];
+    }
   }
 
   isEmptyObject(obj) {
@@ -72,9 +119,10 @@ export class GroupPage {
             this.popoverCtrl.create(PopoverComponent, {
               data: [
                 {
+                  type: 'file',
                   name: 'Импортировать расписание',
-                  handler: () => {
-                    this.importShedule();
+                  handler: (ev) => {
+                    this.importShedule(ev);
                   }
                 },
                 {
@@ -109,16 +157,49 @@ export class GroupPage {
       id: this.group._id,
       shedule
     })
-    
+
+    modal.onDidDismiss(() => {
+      this.moment();
+    })
+
     modal.present();
   }
 
-  importShedule() {
+  importShedule(ev) {
+    let file =ev.target.files[0];
 
+    if (!file) {
+      return;
+    }
+
+    let reader = new FileReader();
+    let t = this;
+
+    reader.onload = function(e) {
+      let shedule: IShedule = JSON.parse(this.result);
+      
+      t.group.shedule = shedule;
+      t.sheduleProvider.import(t.group._id, shedule).subscribe();
+      t.moment();
+    };
+
+    reader.readAsText(file);
   }
 
   exportShedule() {
+    let a = document.createElement("a");
+    let blob = new Blob([JSON.stringify(this.group.shedule)]);
+    let filename = 'shedule.json';
+    let url = URL.createObjectURL(blob);
 
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
   }
 
   changeAvatarGroup() {
@@ -217,6 +298,14 @@ export class GroupPage {
         this.inGroup = false;
         this.main = false;
 
+        this.moment();
+
+        let t = this;
+
+        this.timer = setInterval(() => {
+          t.moment()
+        }, 60000);
+
         if (!!this.group.users)
           while (i < this.group.users.length) {
             let user = this.group.users[i];
@@ -230,6 +319,10 @@ export class GroupPage {
           }
       }
     });
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 
 }

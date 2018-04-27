@@ -4,8 +4,59 @@
 <ion-content padding>
   <ion-grid *ngIf="!!group._id">
     <ion-row justify-content-around>
-      <ion-col col-8 box-shadow>        
+      <ion-col col-8 box-shadow>
+        <div text-center>Текущее время: {{ dayWeek[day] }}, {{ timeNow }} ({{ weeks ? 'Верхняя' : 'Нижняя' }})</div>
         <div text-center *ngIf="isEmptyObject(group.shedule)">Расписание не загружено</div>
+
+        <ng-template [ngIf]="!isEmptyObject(group.shedule)">
+          <ion-segment [(ngModel)]="menu">
+            <ion-segment-button value="now">
+              Текущее
+            </ion-segment-button>
+            <ion-segment-button value="day">
+              На сегодня
+            </ion-segment-button>
+          </ion-segment>
+
+          <div [ngSwitch]="menu">
+            <ion-list *ngSwitchCase="'now'">
+              <ion-item text-center *ngIf="currentShedule != null; else elseBlock">
+                <div item-start>
+                  {{currentShedule.pair}} пара
+                  <br> {{currentShedule.startTime}} - {{currentShedule.endTime}}
+                </div>
+                <h2>{{ currentShedule.subject }}</h2>
+                <h3>{{ currentShedule.teacher }}</h3>
+                <div item-end>
+                  ауд. {{ currentShedule.lectureHall }}
+                </div>
+              </ion-item>
+              <ng-template #elseBlock>
+                <div text-center>На сегодня пар нет</div>
+              </ng-template>
+            </ion-list>
+            <ion-list *ngSwitchCase="'day'">
+              <div *ngIf="currentSheduleOfDay != null || currentSheduleOfDay != undefined; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock>
+                <ion-item text-center *ngFor="let s of currentSheduleOfDay">
+                  <div item-start>
+                    {{s.pair}} пара
+                    <br> {{s.startTime}} - {{s.endTime}}
+                  </div>
+                  <h2>{{ s.subject }}</h2>
+                  <h3>{{ s.teacher }}</h3>
+                  <div item-end>
+                    ауд. {{ s.lectureHall }}
+                  </div>
+                </ion-item>
+              </ng-template>
+              <ng-template #elseBlock>
+                <div text-center>На сегодня пар нет</div>
+              </ng-template>
+            </ion-list>
+          </div>
+        </ng-template>
+
       </ion-col>
       <ion-col col-3 box-shadow>
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + urlApi + group.avatar + ')'}"></div>

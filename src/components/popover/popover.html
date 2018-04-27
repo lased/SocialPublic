@@ -1,5 +1,15 @@
 <ion-list no-margin>
-  <button ion-item *ngFor="let d of data" (click)="d.handler(); close()">
-    {{ d.name }}
-  </button>
+  <ng-template ngFor let-d [ngForOf]="data">
+    <button ion-item *ngIf="d.type != 'file'" (click)="d.handler(); close()">
+      {{ d.name }}
+    </button>
+
+    <ng-template [ngIf]="d.type == 'file'">
+      <input type="file" accept="application/json" (change)="d.handler($event); close()" id="fileInput" hidden>
+      <label for="fileInput" ion-item class="file">
+        {{ d.name }}
+      </label>
+    </ng-template>
+
+  </ng-template>
 </ion-list>

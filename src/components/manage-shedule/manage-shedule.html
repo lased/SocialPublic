@@ -29,7 +29,7 @@
       <ion-item>
         <ion-label>День недели</ion-label>
         <ion-select formControlName="dayWeek" cancelText="Отмена">
-          <ion-option [value]="i" *ngFor="let d of dayWeek; let i = index">{{ d }}</ion-option>
+          <ion-option [value]="i == 6 ? 0 : i" *ngFor="let d of dayWeek; let i = index">{{ d }}</ion-option>
         </ion-select>
       </ion-item>
 
@@ -78,7 +78,7 @@
       <button ion-button margin-top margin-bottom full (click)="addPair()" [disabled]="pairsForm.invalid">Добавить</button>
 
       <ion-item *ngFor="let p of shedule.pairs; let i = index">
-        <div>{{ i + 1 }} пара:
+        <div>{{ p.number}} пара:
           <ion-icon name="ios-clock-outline"></ion-icon> {{ p.startTime + ' - ' + p.endTime }}
         </div>
         <button ion-button item-end clear icon-only (click)="removePair(i)">
@@ -87,9 +87,28 @@
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'shedule'">
-      <ion-item>
-        <h2>Luna</h2>
-      </ion-item>
+      <ion-item-group *ngFor="let w of weeks| objNgFor">
+        <ion-item-divider color="light">{{ w.value }}</ion-item-divider>
+        <ng-template ngFor let-item [ngForOf]="shedule[w.key]" let-i="index">
+          <ion-list-header *ngIf="item != null">
+            {{ dayWeek[i] }}
+          </ion-list-header>
+          <ion-item *ngFor="let s of item; let indx = index" text-center>
+            <div item-start>
+                {{s.pair}} пара<br>
+                {{s.startTime}} - {{s.endTime}}
+            </div>
+            <h2>{{ s.subject }}</h2>
+            <h3>{{ s.teacher }}</h3>
+            <div item-end>
+              ауд. {{ s.lectureHall }}
+            </div>
+            <button ion-button item-end clear icon-only (click)="removeShedule(w.key, i)">
+              <ion-icon name="md-close"></ion-icon>
+            </button>
+          </ion-item>
+        </ng-template>
+      </ion-item-group>
     </ion-list>
   </div>
 
