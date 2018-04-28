@@ -16,6 +16,7 @@ import { StorageProvider } from '../providers/storage/storage';
 import { ChatProvider } from '../providers/chat/chat';
 import { GroupProvider } from '../providers/group/group';
 import { SheduleProvider } from '../providers/shedule/shedule';
+import { EventProvider } from '../providers/event/event';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,11 @@ import { SheduleProvider } from '../providers/shedule/shedule';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      monthShortNames: [
+        "Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Нояб", "Дек"
+      ]
+    }),
     ComponentsModule,
     EmojiPickerModule.forRoot()
   ],
@@ -42,7 +47,8 @@ import { SheduleProvider } from '../providers/shedule/shedule';
     StorageProvider,
     ChatProvider,
     GroupProvider,
-    SheduleProvider
+    SheduleProvider,
+    EventProvider
   ]
 })
 export class AppModule {}

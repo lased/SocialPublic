@@ -1,0 +1,24 @@
+<header title="Добавление события" type="modal"></header>
+ 
+<ion-content>
+  <div class="text-error" text-center *ngIf="error != ''">{{ error }}</div>
+  <ion-list>
+    <ion-item>
+      <ion-input type="text" placeholder="Название" [(ngModel)]="event.title"></ion-input>
+    </ion-item>
+ 
+    <ion-item>
+      <ion-label>Начало</ion-label>
+      <ion-datetime doneText="OK" cancelText="Отмена" displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+    </ion-item>
+ 
+    <ion-item>
+      <ion-label>Конец</ion-label>
+      <ion-datetime doneText="OK" cancelText="Отмена" displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="event.startTime"></ion-datetime>
+    </ion-item>
+  </ion-list>
+ 
+  <button ion-button full icon-left [disabled]="event.title.length == 0" (click)="save()">
+    <ion-icon name="checkmark"></ion-icon> Добавить событие
+  </button>
+</ion-content>

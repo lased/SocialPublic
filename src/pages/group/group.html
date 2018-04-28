@@ -3,7 +3,7 @@
 
 <ion-content padding>
   <ion-grid *ngIf="!!group._id">
-    <ion-row justify-content-around>
+    <ion-row justify-content-around style="align-items: flex-start">
       <ion-col col-8>
 
         <ion-grid no-padding>
@@ -66,6 +66,12 @@
                 </div>
               </ng-template>
 
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-12 box-shadow margin-top>
+              <group-calendar [data]="{id: group._id, main: main, events: group.events}"></group-calendar>
             </ion-col>
           </ion-row>
         </ion-grid>

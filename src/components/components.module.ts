@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
+import { registerLocaleData } from '@angular/common';
 
 import { EmojiPickerModule } from '@ionic-tools/emoji-picker';
+import { NgCalendarModule } from 'ionic2-calendar';
+
+import localeru from '@angular/common/locales/ru';
 
 import { LoginComponent } from './auth/login/login';
 import { RegistrationComponent } from './auth/registration/registration';
@@ -22,6 +26,10 @@ import { ListFriendsComponent } from './list-friends/list-friends';
 import { ChatsContextMenuComponent } from '../pages/chats/chats';
 import { PopoverComponent } from './popover/popover';
 import { ManageSheduleComponent, FullSheduleComponent } from './manage-shedule/manage-shedule';
+import { GroupCalendarComponent } from './group-calendar/group-calendar';
+import { GroupCalendarEventComponent } from './group-calendar-event/group-calendar-event';
+
+registerLocaleData(localeru);
 
 @NgModule({
 	declarations: [
@@ -43,12 +51,15 @@ import { ManageSheduleComponent, FullSheduleComponent } from './manage-shedule/m
 		ChatsContextMenuComponent,
 		PopoverComponent,
 		ManageSheduleComponent,
-		FullSheduleComponent
+		FullSheduleComponent,
+		GroupCalendarComponent,
+		GroupCalendarEventComponent
 	],
 	imports: [
 		IonicModule,
 		EmojiPickerModule,
-		PipesModule
+		PipesModule,
+		NgCalendarModule
 	],
 	exports: [
 		LoginComponent,
@@ -69,7 +80,9 @@ import { ManageSheduleComponent, FullSheduleComponent } from './manage-shedule/m
 		ChatsContextMenuComponent,
 		PopoverComponent,
 		ManageSheduleComponent,
-		FullSheduleComponent
+		FullSheduleComponent,
+		GroupCalendarComponent,
+		GroupCalendarEventComponent
 	],
 	entryComponents: [
 		AvatarComponent,
@@ -82,9 +95,8 @@ import { ManageSheduleComponent, FullSheduleComponent } from './manage-shedule/m
 		ChatsContextMenuComponent,
 		PopoverComponent,
 		ManageSheduleComponent,
-		FullSheduleComponent
-	],
-	providers: [
+		FullSheduleComponent,
+		GroupCalendarEventComponent
 	]
 })
 export class ComponentsModule { }

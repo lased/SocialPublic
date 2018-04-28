@@ -1,0 +1,50 @@
+<h4 text-center margin-top>
+    {{ viewTitle | uppercase }}
+</h4>
+
+<button ion-button round icon-only (click)="addGroupEvent()" *ngIf="data.main" class="add-event">
+    <ion-icon name="add"></ion-icon>    
+</button>
+
+<calendar [eventSource]="eventSource"
+[calendarMode]="calendar.mode"
+[currentDate]="calendar.currentDate"
+[locale]="calendar.locale"
+[noEventsLabel]="calendar.noEventsLabel"
+[formatMonthTitle]="calendar.formatMonthTitle"
+[startingDayMonth]="calendar.startingDayMonth"
+[allDayLabel]="calendar.allDayLabel"
+[monthviewEventDetailTemplate]="template"
+(onCurrentDateChanged)="onCurrentDateChanged($event)"
+(onRangeChanged)="reloadSource(startTime, endTime)"
+(onEventSelected)="onEventSelected($event)"
+(onTitleChanged)="onViewTitleChanged($event)"
+(onTimeSelected)="onTimeSelected($event)"
+step="30">
+</calendar>
+
+<ng-template #template let-showEventDetail="showEventDetail" let-selectedDate="selectedDate" let-noEventsLabel="noEventsLabel">
+    <ion-list>
+        <ng-template [ngIf]="selectedDate.events.length > 0">
+            <ion-item *ngFor="let e of selectedDate.events" text-center>
+                <div item-start>
+                    {{ e.startTime | date:'h:mm' }} - {{ e.endTime | date:'h:mm' }}                    
+                </div>
+                <div>
+                    {{ e.title }}                 
+                </div>
+                <div item-end *ngIf="data.main">
+                    <button ion-button clear icon-only (click)="removeEvent(e)">
+                        <ion-icon name="close"></ion-icon>
+                    </button>
+                </div>
+            </ion-item>
+        </ng-template>
+        
+        <ng-template [ngIf]="selectedDate.events.length == 0">
+            <ion-item text-center style="color: darkgray; font-weight: bold">
+                {{ noEventsLabel }}
+            </ion-item>            
+        </ng-template>
+    </ion-list>
+</ng-template>

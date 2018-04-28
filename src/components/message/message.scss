@@ -22,7 +22,7 @@ message {
     }
     .from {
         margin-left: 0 !important;
-        justify-content: end;
+        justify-content: flex-end;
         .date{
             right: 0;
             text-align: right;
@@ -40,7 +40,7 @@ message {
         }
     }
     .to {
-        justify-content: start;
+        justify-content: flex-start;
         .message {
             background-color: color($colors, to);
             border-radius: 0 5px 5px 5px;

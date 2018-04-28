@@ -302,6 +302,14 @@ export class GroupPage {
         this.inGroup = false;
         this.main = false;
 
+        let index = 0;
+
+        while(index < this.group.events.length){
+          this.group.events[index].startTime = new Date(this.group.events[index].startTime);
+          this.group.events[index].endTime = new Date(this.group.events[index].endTime);
+          index++;
+        }
+
         this.moment();
 
         let t = this;
