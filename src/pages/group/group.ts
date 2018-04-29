@@ -25,6 +25,7 @@ export class GroupPage {
   url: string;
   urlApi: string;
   group: any = {};
+  randUsers: any = [];
   inGroup: boolean;
   main: boolean;
 
@@ -54,6 +55,10 @@ export class GroupPage {
     this.urlApi = Config.UrlApi;
 
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+  }
+
+  goToProfile(url){    
+    this.navCtrl.push('ProfilePage', { url });
   }
 
   openFullShedule() {
@@ -304,7 +309,17 @@ export class GroupPage {
 
         let index = 0;
 
-        while(index < this.group.events.length){
+        while (this.randUsers.length < 9 && this.group.users.length != this.randUsers.length) {
+          let rand = Math.floor(Math.random() * (this.group.users.length));
+          let i = this.randUsers.findIndex(el => {
+            return el.user._id == this.group.users[rand].user._id;
+          });          
+
+          if (i == -1)
+            this.randUsers.push(this.group.users[rand]);
+        }
+
+        while (index < this.group.events.length) {
           this.group.events[index].startTime = new Date(this.group.events[index].startTime);
           this.group.events[index].endTime = new Date(this.group.events[index].endTime);
           index++;

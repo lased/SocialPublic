@@ -77,22 +77,41 @@
         </ion-grid>
 
       </ion-col>
-      <ion-col col-3 box-shadow>
-        <div class="avatar" [ngStyle]="{'background-image': 'url(' + urlApi + group.avatar + ')'}"></div>
-        <ng-template [ngIf]="authProvider.isLoggedIn()">
-          <button ion-button full (click)="joinGroup(group._id)" [disabled]="inGroup" icon-left>
-            {{ inGroup ? 'Вы состоите в группе' : 'Вступить'}}
-          </button>
-          <button ion-button full (click)="leaveGroup(group._id)" *ngIf="!main && inGroup">
-            Покинуть группу
-          </button>
-          <button ion-button icon-right full clear (click)="openPopover($event)" *ngIf="main && inGroup">
-            Настройки
-            <ion-icon name="arrow-down"></ion-icon>
-          </button>
-        </ng-template>
+      <ion-col col-3>
+        <ion-grid no-padding>
+          <ion-row>
+
+            <ion-col col-12 box-shadow>
+              <div class="avatar" [ngStyle]="{'background-image': 'url(' + urlApi + group.avatar + ')'}"></div>
+              <ng-template [ngIf]="authProvider.isLoggedIn()">
+                <button ion-button full (click)="joinGroup(group._id)" [disabled]="inGroup" icon-left>
+                  {{ inGroup ? 'Вы состоите в группе' : 'Вступить'}}
+                </button>
+                <button ion-button full (click)="leaveGroup(group._id)" *ngIf="!main && inGroup">
+                  Покинуть группу
+                </button>
+                <button ion-button icon-right full clear (click)="openPopover($event)" *ngIf="main && inGroup">
+                  Настройки
+                  <ion-icon name="arrow-down"></ion-icon>
+                </button>
+              </ng-template>
+            </ion-col>
+
+            <ion-col col-12 box-shadow margin-top>
+              <div padding>Участники: <span style="color:gray">{{ group.users.length }}</span></div>
+              <ion-grid>
+                <ion-row justify-content-start>
+                  <ion-col col-4 *ngFor="let u of randUsers" text-center (click)="goToProfile(u.user.url)" style="cursor: pointer">
+                      <div class="mini-avatar" [ngStyle]="{'background-image': 'url(' + urlApi + u.user.avatar + ')'}"></div>
+                      {{ u.user.name }}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>            
+
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-

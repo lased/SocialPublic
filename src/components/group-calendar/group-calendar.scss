@@ -1,10 +1,13 @@
 calendar {
-    .monthview-current.monthview-primary-with-event{
-        background-color: #3A8787!important;
+    .monthview-current.monthview-primary-with-event {
+        background-color: #3A8787 !important;
     }
 }
-.add-event{
-    position: absolute;
-    top: 0;
-    right: 0;
+
+group-calendar {
+    .add-event {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 }
