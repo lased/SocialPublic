@@ -57,7 +57,11 @@ export class GroupPage {
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
   }
 
-  goToProfile(url){    
+  addPost(ev) {
+    console.log(ev);
+  }
+
+  goToProfile(url) {
     this.navCtrl.push('ProfilePage', { url });
   }
 
@@ -307,33 +311,33 @@ export class GroupPage {
         this.inGroup = false;
         this.main = false;
 
-        let index = 0;
+        if (!!this.group.users) {
+          let index = 0;
 
-        while (this.randUsers.length < 9 && this.group.users.length != this.randUsers.length) {
-          let rand = Math.floor(Math.random() * (this.group.users.length));
-          let i = this.randUsers.findIndex(el => {
-            return el.user._id == this.group.users[rand].user._id;
-          });          
+          while (this.randUsers.length < 9 && this.group.users.length != this.randUsers.length) {
+            let rand = Math.floor(Math.random() * (this.group.users.length));
+            let i = this.randUsers.findIndex(el => {
+              return el.user._id == this.group.users[rand].user._id;
+            });
 
-          if (i == -1)
-            this.randUsers.push(this.group.users[rand]);
-        }
+            if (i == -1)
+              this.randUsers.push(this.group.users[rand]);
+          }
 
-        while (index < this.group.events.length) {
-          this.group.events[index].startTime = new Date(this.group.events[index].startTime);
-          this.group.events[index].endTime = new Date(this.group.events[index].endTime);
-          index++;
-        }
+          while (index < this.group.events.length) {
+            this.group.events[index].startTime = new Date(this.group.events[index].startTime);
+            this.group.events[index].endTime = new Date(this.group.events[index].endTime);
+            index++;
+          }
 
-        this.moment();
+          this.moment();
 
-        let t = this;
+          let t = this;
 
-        this.timer = setInterval(() => {
-          t.moment()
-        }, 60000);
+          this.timer = setInterval(() => {
+            t.moment()
+          }, 60000);
 
-        if (!!this.group.users)
           while (i < this.group.users.length) {
             let user = this.group.users[i];
 
@@ -344,6 +348,7 @@ export class GroupPage {
             }
             i++;
           }
+        }
       }
     });
   }

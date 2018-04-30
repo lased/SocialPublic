@@ -1,7 +1,7 @@
 <ion-list no-margin>
   <ion-item *ngFor="let f of files; let i = index">
     <ng-template [ngIf]="isImage(f, i)">
-      <img [src]="f.path ? (f.path + (f.name ? f.name : f.file.name)) : f.base64" style="max-height: 200px;">
+      <img [src]="f.path ? (f.path + (f.name ? f.name : f.file.name)) : f.base64" style="max-height: 80px;">
     </ng-template>
     <ng-template [ngIf]="!isImage(f)">
       <span>{{ f.name ? f.name : f.file.name }}</span>

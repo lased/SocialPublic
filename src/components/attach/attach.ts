@@ -38,7 +38,7 @@ export class AttachComponent {
     modal.present();
   }
 
-  close(data = {}){
+  close(data = null){
     this.viewCtrl.dismiss(data);
   }
 

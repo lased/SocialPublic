@@ -1,0 +1,20 @@
+<div class="add-post">
+
+  <button ion-button icon-only full clear style="width: 40px;" (click)="attach($event)">
+    <ion-icon name="md-attach"></ion-icon>
+  </button>
+
+  <ion-textarea [formControl]="post" placeholder="Сообщение" class="message" no-margin></ion-textarea>
+
+  <button ion-button clear icon-only (click)="toggled = !toggled" [(emojiPickerIf)]="toggled" [emojiPickerDirection]="'top'"
+    (emojiPickerSelect)="handleSelection($event)" style="font-size: 30px;margin: 0;">
+    &#9786;
+  </button>
+
+  <button ion-button icon-only full style="width: 50px;" [disabled]="post.invalid" (click)="addPost()">
+    <ion-icon name="md-send"></ion-icon>
+  </button>
+
+</div>
+
+<view-files [files]="files" (remove)="removeFile($event)"></view-files>

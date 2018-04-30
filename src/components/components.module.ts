@@ -28,6 +28,8 @@ import { PopoverComponent } from './popover/popover';
 import { ManageSheduleComponent, FullSheduleComponent } from './manage-shedule/manage-shedule';
 import { GroupCalendarComponent } from './group-calendar/group-calendar';
 import { GroupCalendarEventComponent } from './group-calendar-event/group-calendar-event';
+import { PostComponent } from './post/post';
+import { SubmitPostBoxComponent } from './submit-post-box/submit-post-box';
 
 registerLocaleData(localeru);
 
@@ -53,7 +55,9 @@ registerLocaleData(localeru);
 		ManageSheduleComponent,
 		FullSheduleComponent,
 		GroupCalendarComponent,
-		GroupCalendarEventComponent
+		GroupCalendarEventComponent,
+    PostComponent,
+    SubmitPostBoxComponent
 	],
 	imports: [
 		IonicModule,
@@ -82,7 +86,9 @@ registerLocaleData(localeru);
 		ManageSheduleComponent,
 		FullSheduleComponent,
 		GroupCalendarComponent,
-		GroupCalendarEventComponent
+		GroupCalendarEventComponent,
+    PostComponent,
+    SubmitPostBoxComponent
 	],
 	entryComponents: [
 		AvatarComponent,

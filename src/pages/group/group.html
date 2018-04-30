@@ -74,6 +74,38 @@
               <group-calendar [data]="{id: group._id, main: main, events: group.events}"></group-calendar>
             </ion-col>
           </ion-row>
+
+          <ion-row>
+            <ion-col col-12 box-shadow [box-shadow-hidden]="false" margin-top>
+              <submit-post-box [group]="group._id" (add-post)="addPost($event)"></submit-post-box>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let p of group.posts; let i = index">
+            <ion-col col-12 margin-top>
+
+              <ion-card>
+
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img [src]="urlApi + group.avatar">
+                  </ion-avatar>
+                  <h2>{{ group.name }}</h2>
+                  <p>{{ p.date | date:'d MMMM yyyy H:mm'}}</p>
+                </ion-item>
+
+                <img src="img/advance-card-bttf.png">
+
+                <ion-card-content>
+                  <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a
+                    DeLorean?! Whoa. This is heavy.</p>
+                </ion-card-content>
+
+              </ion-card>
+
+            </ion-col>
+          </ion-row>
+
         </ion-grid>
 
       </ion-col>
@@ -98,16 +130,18 @@
             </ion-col>
 
             <ion-col col-12 box-shadow margin-top>
-              <div padding>Участники: <span style="color:gray">{{ group.users.length }}</span></div>
+              <div padding>Участники:
+                <span style="color:gray">{{ group.users.length }}</span>
+              </div>
               <ion-grid>
                 <ion-row justify-content-start>
                   <ion-col col-4 *ngFor="let u of randUsers" text-center (click)="goToProfile(u.user.url)" style="cursor: pointer">
-                      <div class="mini-avatar" [ngStyle]="{'background-image': 'url(' + urlApi + u.user.avatar + ')'}"></div>
-                      {{ u.user.name }}
+                    <div class="mini-avatar" [ngStyle]="{'background-image': 'url(' + urlApi + u.user.avatar + ')'}"></div>
+                    {{ u.user.name }}
                   </ion-col>
                 </ion-row>
               </ion-grid>
-            </ion-col>            
+            </ion-col>
 
           </ion-row>
         </ion-grid>

@@ -17,6 +17,26 @@ export class GroupProvider {
     this.urlApi = Config.UrlApi;
   }
 
+  addPost(id, post, files){
+    let fd = new FormData()
+    let downloaded = [];
+
+    fd.append('token', this.token);
+    fd.append('post', post);
+    fd.append('id', id);
+    for (let i = 0; i < files.length; i++) {
+      files[i] instanceof File ? fd.append('uploadedFiles', files[i]) : downloaded.push(files[i]);
+    }
+
+    fd.append('downloadedFiles', JSON.stringify(downloaded))
+
+    const req = new HttpRequest('POST', Config.UrlApi + '/api/group/post', fd, {
+      reportProgress: true,
+    });
+
+    return this.http.request(req);
+  }
+
   updateDataGroup(data){
     return this.http.put(this.urlApi + '/api/group/data', { token: this.token, data });    
   }
