@@ -57,8 +57,14 @@ export class GroupPage {
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
   }
 
+  isImage(str) {        
+    if (/\.(jpg|png|jpeg|gif)$/.test(str))
+      return true;
+    return false;
+  }
+
   addPost(ev) {
-    console.log(ev);
+    this.group.posts.unshift(ev);
   }
 
   goToProfile(url) {
