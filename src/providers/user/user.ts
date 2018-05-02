@@ -15,6 +15,10 @@ export class UserProvider {
     this.token = this.storageProvider.get('token');
   }
 
+  getNews(){
+    return this.http.get(Config.UrlApi + '/api/user/news?token=' + this.token);
+  }
+
   getFiles(type){
     return this.http.get(Config.UrlApi + '/api/user/files?token=' + this.token + '&type=' + type);
   }

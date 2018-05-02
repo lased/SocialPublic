@@ -17,6 +17,12 @@ export class GroupProvider {
     this.urlApi = Config.UrlApi;
   }
 
+  removePost(id, post){
+    post = JSON.stringify(post);
+    
+    return this.http.delete(this.urlApi + '/api/group/post?token=' + this.token + '&id=' + id + '&post=' + post);        
+  }
+
   addPost(id, post, files){
     let fd = new FormData()
     let downloaded = [];

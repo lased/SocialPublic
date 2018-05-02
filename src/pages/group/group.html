@@ -2,7 +2,7 @@
 
 
 <ion-content padding>
-  <ion-grid *ngIf="!!group._id">
+  <ion-grid *ngIf="!!group._id; else notGroup">
     <ion-row justify-content-around style="align-items: flex-start">
       <ion-col col-8>
 
@@ -87,6 +87,9 @@
               <ion-card>
 
                 <ion-item>
+                  <button ion-button item-end clear icon-only *ngIf="main" (click)="removePost(p, i)">
+                    <ion-icon name="close"></ion-icon>
+                  </button>
                   <ion-avatar item-start>
                     <img [src]="urlApi + group.avatar">
                   </ion-avatar>
@@ -166,4 +169,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ng-template #notGroup>
+    <h3>Данной группы не существует</h3>
+  </ng-template>
 </ion-content>

@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Auth } from '../../decorators/auth';
 import { AuthProvider } from '../../providers/auth/auth';
+import { UserProvider } from '../../providers/user/user';
+import { Config } from '../../config';
 
 @Auth()
 @IonicPage()
@@ -11,16 +13,22 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'news.html',
 })
 export class NewsPage {
+  urlApi: string = Config.UrlApi;
+  posts: any = [];
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    private authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private userProvider: UserProvider
   ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewsPage');
+    this.userProvider.getNews().subscribe(data => {
+      if (data['code'] == 200)
+        this.posts = data['message'];
+    });
   }
 
 }

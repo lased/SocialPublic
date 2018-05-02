@@ -57,6 +57,14 @@ export class GroupPage {
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
   }
 
+  removePost(post, index){
+    this.groupProvider.removePost(this.group._id, post).subscribe(data => {
+      if(data['code'] == 200){
+        this.group.posts.splice(index, 1);
+      }
+    });
+  }
+
   isImage(str) {        
     if (/\.(jpg|png|jpeg|gif)$/.test(str))
       return true;

@@ -2,4 +2,49 @@
 
 
 <ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 col-md-6 *ngFor="let p of posts">
+
+                <ion-card>
+
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <img [src]="urlApi + p.avatar">
+                        </ion-avatar>
+                        <h2>{{ p.name }}</h2>
+                        <p>{{ p.date | date:'d MMMM yyyy H:mm'}}</p>
+                    </ion-item>
+
+                    <ion-card-content>
+                        <p>{{ p.post }}</p>
+                    </ion-card-content>
+
+                    <h4 *ngIf="p.files.length > 0" margin-left style="font-weight: bold; color: gray">Прикрепленные файлы:</h4>
+
+                    <ion-grid>
+                        <ion-row>
+                            <ng-template ngFor let-f [ngForOf]="p.files">
+
+                                <ion-col col-6 *ngIf="isImage(f.file)">
+                                    <img [src]="urlApi + f.file">
+                                </ion-col>
+
+                                <ion-col col-12 *ngIf="!isImage(f.file)">
+                                    <a [href]="apiUrl + f.file" target="_blank" icon-left>
+                                        <ion-icon name="md-clipboard"></ion-icon>
+                                        f.file
+                                    </a>
+                                </ion-col>
+
+                            </ng-template>
+                        </ion-row>
+                    </ion-grid>
+
+                </ion-card>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
 </ion-content>

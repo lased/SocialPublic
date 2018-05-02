@@ -29,7 +29,7 @@
       <ion-item>
         <ion-label>День недели</ion-label>
         <ion-select formControlName="dayWeek" cancelText="Отмена">
-          <ion-option [value]="i == 6 ? 0 : i" *ngFor="let d of dayWeek; let i = index">{{ d }}</ion-option>
+          <ion-option [value]="i == 0 ? 6 : i" *ngFor="let d of dayWeek; let i = index">{{ d }}</ion-option>
         </ion-select>
       </ion-item>
 
