@@ -1,4 +1,4 @@
-<header title="Добавление события" type="modal"></header>
+<header [title]="(!edit ? 'Добавление' : 'Изменение') + ' события'" type="modal"></header>
  
 <ion-content>
   <div class="text-error" text-center *ngIf="error != ''">{{ error }}</div>
@@ -19,6 +19,6 @@
   </ion-list>
  
   <button ion-button full icon-left [disabled]="event.title.length == 0" (click)="save()">
-    <ion-icon name="checkmark"></ion-icon> Добавить событие
+    <ion-icon name="checkmark"></ion-icon> {{ !edit ? 'Добавить' : 'Изменить' }} событие
   </button>
 </ion-content>

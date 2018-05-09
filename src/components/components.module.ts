@@ -5,6 +5,8 @@ import { registerLocaleData } from '@angular/common';
 import { EmojiPickerModule } from '@ionic-tools/emoji-picker';
 import { NgCalendarModule } from 'ionic2-calendar';
 
+import { DragulaModule } from 'ng2-dragula';
+
 import localeru from '@angular/common/locales/ru';
 
 import { LoginComponent } from './auth/login/login';
@@ -56,14 +58,15 @@ registerLocaleData(localeru);
 		FullSheduleComponent,
 		GroupCalendarComponent,
 		GroupCalendarEventComponent,
-    PostComponent,
-    SubmitPostBoxComponent
+		PostComponent,
+		SubmitPostBoxComponent
 	],
 	imports: [
 		IonicModule,
 		EmojiPickerModule,
 		PipesModule,
-		NgCalendarModule
+		NgCalendarModule,
+		DragulaModule
 	],
 	exports: [
 		LoginComponent,
@@ -87,8 +90,8 @@ registerLocaleData(localeru);
 		FullSheduleComponent,
 		GroupCalendarComponent,
 		GroupCalendarEventComponent,
-    PostComponent,
-    SubmitPostBoxComponent
+		PostComponent,
+		SubmitPostBoxComponent
 	],
 	entryComponents: [
 		AvatarComponent,

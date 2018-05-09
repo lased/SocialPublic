@@ -87,29 +87,35 @@
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'shedule'">
+
       <ion-item-group *ngFor="let w of weeks | objNgFor">
         <ion-item-divider color="light">{{ w.value }}</ion-item-divider>
         <ng-template ngFor let-item [ngForOf]="shedule[w.key]" let-i="index">
           <ion-list-header *ngIf="item != null">
             {{ dayWeek[i] }}
           </ion-list-header>
-          <ion-item *ngFor="let s of item; let indx = index" text-center>
-            <div item-start>
-              {{s.pair}} пара
-              <br> {{s.startTime}} - {{s.endTime}}
-            </div>
-            <h2>{{ s.subject }}</h2>
-            <h3>{{ s.teacher }}</h3>
-            <div item-end>
-              ауд. {{ s.lectureHall }}
-            </div>
-            <button ion-button item-end clear icon-only (click)="removeShedule(w.key, i)">
-              <ion-icon name="md-close"></ion-icon>
-            </button>
-          </ion-item>
+
+          <div [dragula]="w.key + ' ' + i" [dragulaModel]="item">
+            <ion-item *ngFor="let s of item; let indx = index" text-center>
+              <div item-start>
+                {{s.pair}} пара
+                <br> {{s.startTime}} - {{s.endTime}}
+              </div>
+              <h2>{{ s.subject }}</h2>
+              <h3>{{ s.teacher }}</h3>
+              <div item-end>
+                ауд. {{ s.lectureHall }}
+              </div>
+              <button ion-button item-end clear icon-only (click)="removeShedule(w.key, i)">
+                <ion-icon name="md-close"></ion-icon>
+              </button>
+            </ion-item>
+          </div>
+
         </ng-template>
       </ion-item-group>
     </ion-list>
   </div>
 
 </ion-content>
+

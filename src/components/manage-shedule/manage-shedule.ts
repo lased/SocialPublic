@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IShedule } from '../../providers/shedule/shedule.model';
 import { SheduleProvider } from '../../providers/shedule/shedule';
 
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
 const dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
 const weeks = {
   topWeek: 'Верхняя неделя',
@@ -152,15 +154,26 @@ export class ManageSheduleComponent {
 export class FullSheduleComponent {
   shedule: any;
   weeks: any;
-  dayWeek: any; 
+  dayWeek: any;
 
   constructor(
-    private navParams: NavParams
+    private navParams: NavParams,
+    private dragulaService: DragulaService
   ) {
     this.shedule = this.navParams.get('shedule');
     console.log(this.shedule);
-    
+
     this.weeks = weeks;
     this.dayWeek = dayWeek;
+  }
+
+  ngOnInit() {
+    this.dragulaService.drag.subscribe(value => {
+      console.log(value);
+    });
+
+    this.dragulaService.dropModel.subscribe(value => {
+      console.log(value);
+    });
   }
 }
