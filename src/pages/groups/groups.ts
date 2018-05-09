@@ -95,8 +95,13 @@ export class GroupsPage {
               }).present();
             } else {
               this.groupProvider.createGroup(data).subscribe(data => {
-                if(data['code'] == 200)
-                  this.getGroups();
+                if (data['code'] == 200) {
+                  let t = this;
+
+                  setTimeout(() => {
+                    t.getGroups();
+                  }, 100);
+                }
               });
             }
           }
