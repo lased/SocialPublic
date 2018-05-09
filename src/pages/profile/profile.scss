@@ -4,4 +4,20 @@ page-profile {
         width: 100%;
         max-height: 300px;
     }
+    .online{
+        border-radius: 20px;
+        padding: 2px 5px;
+        background-color: color($colors, primary);
+        color: #fff;
+        max-width: 70px;
+        text-align: center;
+    }
+    .mini-avatar{
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin: auto;
+        background-position: 50%;
+    }
 }

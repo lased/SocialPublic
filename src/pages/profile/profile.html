@@ -13,7 +13,8 @@
               <ng-template [ngIf]="storageProvider.get('url') !== url && authProvider.isLoggedIn()">
                 <button ion-button full (click)="addToFriend(user._id)" [disabled]="isFriend" icon-left>
                   <ion-icon name="md-person-add" *ngIf="!isFriend"></ion-icon>
-                  {{ isFriend && status ? 'У вас в друзьях' : isFriend && input ? 'Заявка в друзья' : isFriend && status == null ? 'Заявка отправлена':'Добавить в друзья'}}
+                  {{ isFriend && status ? 'У вас в друзьях' : isFriend && input ? 'Заявка в друзья' : isFriend && status == null ? 'Заявка
+                  отправлена':'Добавить в друзья'}}
                 </button>
                 <button ion-button full style="border-radius: 0px 0px 5px 5px;" (click)="sendMessage(user._id)" icon-left>
                   <ion-icon name="md-mail"></ion-icon>
@@ -22,10 +23,8 @@
               </ng-template>
             </ion-col>
 
-            <ion-col col-12 box-shadow margin-top>List friends</ion-col>
           </ion-row>
         </ion-grid>
-
 
       </ion-col>
       <ion-col col-7>
@@ -33,21 +32,71 @@
           <ion-row>
 
             <ion-col col-12 box-shadow>
-              <div float-left>{{ user.surname }} {{ user.name }}</div>
-              <div float-right>
-                <div *ngIf="user.state">Online
-                  <ion-icon *ngIf="user.platform" name="md-phone-portrait"></ion-icon>
-                </div>
-                <div *ngIf="!user.state">
-                  Последнее посещение {{ user.lastAccess | date: 'dd.MM.yyyy в H:mm'}}
-                  <ion-icon *ngIf="user.platform" name="md-phone-portrait"></ion-icon>
-                </div>
-              </div>
+              <ion-grid no-padding>
+
+                <ion-row>
+                  <ion-col col-8 col-md-6 text-center>
+                    <h4>{{ user.surname }} {{ user.name }}</h4>
+                  </ion-col>
+                  <ion-col col-4 col-md-6>
+                    <div float-right>
+                      <div *ngIf="user.state" class="online">Online
+                        <ion-icon *ngIf="user.platform" name="md-phone-portrait"></ion-icon>
+                      </div>
+                      <div *ngIf="!user.state">
+                        Последнее посещение {{ user.lastAccess | date: 'dd.MM.yyyy в H:mm'}}
+                        <ion-icon *ngIf="user.platform" name="md-phone-portrait"></ion-icon>
+                      </div>
+                    </div>
+                  </ion-col>
+
+                  <ion-col col-12>
+                    <ion-list>
+                      <ion-item *ngIf="user.status != '' && user.status != null">Статус: {{ user.status }}</ion-item>
+                      <ion-item *ngIf="user.about != '' && user.about != null">Обо мне: {{ user.about }}</ion-item>
+                      <ion-item *ngIf="user.sex != '' && user.sex != null">Пол: {{ user.sex ? 'Мужской' : 'Женский' }}</ion-item>
+                      <ion-item *ngIf="user.birthday != '' && user.birthday != null">Дата рождения: {{ user.birthday | date:'d MMMM yyyy' }}</ion-item>
+                      <ion-item *ngIf="user.country != '' && user.country != null">Страна: {{ user.country }}</ion-item>
+                      <ion-item *ngIf="user.city != '' && user.city != null">Город/поселок: {{ user.city }}</ion-item>
+                      <ion-item *ngIf="user.phone != '' && user.phone != null">Номер телефона: {{ user.phone }}</ion-item>
+                    </ion-list>
+                  </ion-col>
+
+                </ion-row>
+              </ion-grid>
             </ion-col>
 
           </ion-row>
         </ion-grid>
       </ion-col>
+
+      <ion-col col-12 col-md-4 box-shadow margin-top>
+        <div padding>Друзья:
+          <span style="color:gray">{{ user.friends.length }}</span>
+        </div>
+        <ion-grid>
+          <ion-row justify-content-start>
+            <ion-col col-4 *ngFor="let u of friends" text-center (click)="goTo(u._id.url, 'ProfilePage')" style="cursor: pointer">
+              <div class="mini-avatar" [ngStyle]="{'background-image': 'url(' + urlApi + u._id.avatar + ')'}"></div>
+              {{ u._id.name }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col col-12 col-md-4 box-shadow margin-top>
+        <div padding>Группы:
+          <span style="color:gray">{{ user.groups.length }}</span>
+        </div>
+        <ion-grid>
+          <ion-row justify-content-start>
+            <ion-col col-4 *ngFor="let g of groups" text-center (click)="goTo(g.url, 'GroupPage')" style="cursor: pointer">
+              <div class="mini-avatar" [ngStyle]="{'background-image': 'url(' + urlApi + g.avatar + ')'}"></div>
+              {{ g.name }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, ToastController, ModalController } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { Auth } from '../../decorators/auth';
 import { UserProvider } from '../../providers/user/user';
 import { StorageProvider } from '../../providers/storage/storage';
 import { SocketProvider } from '../../providers/socket/socket';
+import { BoxMessageComponent } from '../../components/box-message/box-message';
+import { Config } from '../../config';
 
 @Auth('all')
 @IonicPage({
@@ -16,6 +18,7 @@ import { SocketProvider } from '../../providers/socket/socket';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  urlApi: string = Config.UrlApi;
   url: string;
   user: any = {};
   isFriend: boolean = false;
@@ -23,6 +26,9 @@ export class ProfilePage {
   input: boolean;
 
   loader: any;
+
+  friends: any = [];
+  groups: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -34,14 +40,12 @@ export class ProfilePage {
     public platform: Platform,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
+    private modalCtrl: ModalController,
   ) {
     this.url = navParams.get('url');
     this.loader = this.loadingCtrl.create();
-    this.loader.present();
-  }
-
-  ionViewDidLoad() {
-    this.getUser();
+    this.loader.present();    
+    this.getUser();        
   }
 
   addToFriend(id) {
@@ -65,8 +69,9 @@ export class ProfilePage {
       });
     }
   }
-  sendMessage(id) {
 
+  sendMessage(id) {
+    this.modalCtrl.create(BoxMessageComponent, { id }).present();
   }
 
   friend(id) {
@@ -74,7 +79,7 @@ export class ProfilePage {
       let index = 0;
       let friends = JSON.parse(this.storageProvider.get('friends'));
 
-      while (index < friends.length) {        
+      while (index < friends.length) {
         if (id == friends[index]._id) {
           this.isFriend = true;
           this.input = friends[index].input;
@@ -90,8 +95,13 @@ export class ProfilePage {
     this.userProvider.getUser(this.url).subscribe(data => {
       this.user = data['message'];
       this.friend(this.user._id);
-      this.loader.dismiss();
-    })
+      this.friends = this.user.friends.slice(0, 9);
+      this.groups = this.user.groups.slice(0, 9);
+      this.loader.dismiss();      
+    });
   }
 
+  goTo(url, type) {
+    this.navCtrl.push(type, { url });
+  }
 }

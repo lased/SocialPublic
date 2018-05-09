@@ -17,7 +17,7 @@ import { UserProvider } from '../../providers/user/user';
 export class SettingsPage extends FormClass {
   formError: string = '';
   form: any;
-  tab: string = 'profile'//'common';
+  tab: string = 'profile';
   settings: any;
   labels: Object;
 
@@ -102,8 +102,6 @@ export class SettingsPage extends FormClass {
             Validators.maxLength(255)
           ]),
           'birthday': new FormControl(obj['profile']['birthday'])
-        }),
-        theme: new FormGroup({
         })
       }
     });
