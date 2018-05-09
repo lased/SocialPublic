@@ -9,7 +9,7 @@
                 <ion-card>
 
                     <ion-item>
-                        <ion-avatar item-start>
+                        <ion-avatar item-start (click)="openPage(p.url)" style="cursor: pointer">
                             <img [src]="urlApi + p.avatar">
                         </ion-avatar>
                         <h2>{{ p.name }}</h2>

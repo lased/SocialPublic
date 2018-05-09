@@ -70,6 +70,7 @@ export class ChatsPage {
     let chats = JSON.parse(this.storageProvider.get('chats'));
     let index = chats.indexOf(chat);
 
+    this.chats[index].unread = 0;
     this.navCtrl.push('ChatPage', { chat: index });
   }
 
@@ -77,7 +78,7 @@ export class ChatsPage {
     this.modalCtrl.create(ListFriendsComponent).present();
   }
 
-  getChats(){
+  getChats() {
     this.chatProvider.getChats().subscribe(data => {
       if (data['code'] == 200) {
         this.chats = data['message']['chats'];
@@ -89,7 +90,7 @@ export class ChatsPage {
     this.getChats();
 
     this.socketProvider.off('chatsPageMessage');
-    this.socketProvider.on('chatsPageMessage').subscribe(msg => {   
+    this.socketProvider.on('chatsPageMessage').subscribe(msg => {
       this.getChats();
     });
 
@@ -102,7 +103,7 @@ export class ChatsPage {
       chats.push(data);
       this.storageProvider.set('chats', JSON.stringify(chats))
     });
-        
+
     this.socketProvider.off('deleteChat');
     this.socketProvider.on('deleteChat').subscribe(data => {
       let chats = JSON.parse(this.storageProvider.get('chats'));
@@ -114,7 +115,7 @@ export class ChatsPage {
       index = this.chats.findIndex(el => {
         return el._id == data;
       });
-      this.chats.splice(index, 1);            
+      this.chats.splice(index, 1);
     });
   }
 

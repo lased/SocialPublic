@@ -25,7 +25,7 @@ export class GroupPage {
   url: string;
   urlApi: string;
   group: any = {};
-  randUsers: any = [];
+  randUsers: any;
   inGroup: boolean;
   main: boolean;
 
@@ -57,15 +57,15 @@ export class GroupPage {
     this.dayWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
   }
 
-  removePost(post, index){
+  removePost(post, index) {
     this.groupProvider.removePost(this.group._id, post).subscribe(data => {
-      if(data['code'] == 200){
+      if (data['code'] == 200) {
         this.group.posts.splice(index, 1);
       }
     });
   }
 
-  isImage(str) {        
+  isImage(str) {
     if (/\.(jpg|png|jpeg|gif)$/.test(str))
       return true;
     return false;
@@ -299,12 +299,19 @@ export class GroupPage {
 
   ionViewDidLoad() {
     this.getGroup();
+
+    this.socketProvider.off('joinGroup');
+    this.socketProvider.on('joinGroup').subscribe(data => {
+      this.getGroup();
+    });
   }
 
   leaveGroup(id) {
     this.groupProvider.leaveGroup(id).subscribe(data => {
-      if (data['code'] == 200)
+      if (data['code'] == 200){
         this.inGroup = false;
+        this.getGroup();
+      }
     })
   }
 
@@ -327,6 +334,8 @@ export class GroupPage {
 
         if (!!this.group.users) {
           let index = 0;
+
+          this.randUsers = [];
 
           while (this.randUsers.length < 9 && this.group.users.length != this.randUsers.length) {
             let rand = Math.floor(Math.random() * (this.group.users.length));

@@ -31,4 +31,8 @@ export class NewsPage {
     });
   }
 
+  openPage(url){
+    this.navCtrl.push('GroupPage', { url });
+  }
+
 }
