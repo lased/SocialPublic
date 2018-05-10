@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { IShedule } from '../../providers/shedule/shedule.model';
@@ -32,7 +32,8 @@ export class ManageSheduleComponent {
     private viewCtrl: ViewController,
     private navParams: NavParams,
     private fb: FormBuilder,
-    private sheduleProvider: SheduleProvider
+    private sheduleProvider: SheduleProvider,
+    private toastCtrl: ToastController,
   ) {
     this.groupId = this.navParams.get('id');
     this.shedule = this.navParams.get('shedule');
@@ -52,21 +53,50 @@ export class ManageSheduleComponent {
     else if (!this.shedule.lowerWeek)
       this.shedule.lowerWeek = [];
 
+    this.sortShedule();
+    this.sortPair();
+  }
+
+  saveShedule() {
+    this.sheduleProvider.addShedule(this.groupId, {
+      lowerWeek: this.shedule.lowerWeek,
+      topWeek: this.shedule.topWeek
+    }).subscribe(data => {
+      if (data['code'] == 200) {
+        this.toast('Расписание успешно изменено');
+      }
+    });
+  }
+
+  toast(msg) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    }).present();
+  }
+
+  sortPair() {
     this.shedule.pairs.sort((a, b) => {
       return a.number - b.number;
     });
   }
-
-  saveShedule(){
-    this.sheduleProvider.addShedule(this.groupId, {
-      lowerWeek: this.shedule.lowerWeek,
-      topWeek: this.shedule.topWeek
-    }).subscribe();
+  sortShedule() {
+    for (let k in this.weeks) {
+      this.shedule[k].forEach(el => {
+        if (el != null) {
+          el.sort((prev, cur) => {
+            return prev.pair - cur.pair;
+          })
+        }
+      })
+    }
   }
 
   removeMoved(item, list) {
-    console.log(list);
+    let pairs = [];
+
     list.splice(list.indexOf(item), 1);
+    this.sortShedule();
   }
 
   addPair() {
@@ -87,8 +117,12 @@ export class ManageSheduleComponent {
         startTime: pair.startTime,
         endTime: pair.endTime
       });
-      this.sheduleProvider.addPair(this.groupId, this.shedule.pairs).subscribe();
+      this.sheduleProvider.addPair(this.groupId, this.shedule.pairs).subscribe(data => {
+        if (data['code'] == 200)
+          this.toast('Пара добавлена');
+      });
       this.pairsForm.reset();
+      this.sortPair();
     }
   }
 
@@ -128,8 +162,12 @@ export class ManageSheduleComponent {
       this.sheduleProvider.addShedule(this.groupId, {
         lowerWeek: this.shedule.lowerWeek,
         topWeek: this.shedule.topWeek
-      }).subscribe();
+      }).subscribe(data => {
+        if (data['code'] == 200)
+          this.toast('Занятие добавлено');
+      });
       this.sheduleForm.reset();
+      this.sortShedule();
     }
   }
 

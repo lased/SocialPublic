@@ -85,6 +85,7 @@
           <ion-icon name="md-close"></ion-icon>
         </button>
       </ion-item>
+      <ion-item hidden></ion-item>
     </ion-list>
     <div *ngSwitchCase="'shedule'">
       <ion-item>
@@ -99,7 +100,7 @@
           </div>
 
           <ion-grid [dndList]="{'disabled': !dragNDrop}" [dndModel]="item" *ngIf="item != null">
-            <ion-row *ngFor="let s of item; let indx = index" [dndDraggable]="{draggable:true}" [dndObject]="s" (dndMoved)="removeMoved(s, item)" align-items-center>
+            <ion-row *ngFor="let s of item; let indx = index" [draggable]="dragNDrop" [dndDraggable] [dndObject]="s" (dndMoved)="removeMoved(s, item)" align-items-center>
               <ion-col col-2 style="overflow: hidden;">
                 <ion-select class="max-width" [(ngModel)]="s.pair" cancelText="Отмена">
                   <ion-option [selected]="s.pair == p.number" [value]="p.number" *ngFor="let p of shedule.pairs; let i = index">

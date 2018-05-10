@@ -17,7 +17,7 @@
         <ng-template [ngIf]="selectedDate.events.length > 0">
             <ion-item *ngFor="let e of selectedDate.events" text-center>
                 <div item-start>
-                    {{ e.startTime | date:'h:mm' }} - {{ e.endTime | date:'H:mm' }}
+                    {{ e.startTime | date:'H:mm' }} - {{ e.endTime | date:'H:mm' }}
                 </div>
                 <div>
                     {{ e.title }}
