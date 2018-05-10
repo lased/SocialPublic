@@ -87,7 +87,6 @@
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'shedule'">
-
       <ion-item-group *ngFor="let w of weeks | objNgFor">
         <ion-item-divider color="light">{{ w.value }}</ion-item-divider>
         <ng-template ngFor let-item [ngForOf]="shedule[w.key]" let-i="index">
@@ -95,8 +94,9 @@
             {{ dayWeek[i] }}
           </ion-list-header>
 
-          <div [dragula]="w.key + ' ' + i" [dragulaModel]="item">
-            <ion-item *ngFor="let s of item; let indx = index" text-center>
+          <div [dndList] [dndModel]="item">
+            <div *ngIf="item != null" style="height: 10px;"></div>
+            <ion-item *ngFor="let s of item; let indx = index" [dndDraggable] [dndObject]="s" (dndMoved)="removeMoved(s, item)" text-center>
               <div item-start>
                 {{s.pair}} пара
                 <br> {{s.startTime}} - {{s.endTime}}
@@ -118,4 +118,3 @@
   </div>
 
 </ion-content>
-

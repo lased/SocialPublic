@@ -5,7 +5,7 @@ import { registerLocaleData } from '@angular/common';
 import { EmojiPickerModule } from '@ionic-tools/emoji-picker';
 import { NgCalendarModule } from 'ionic2-calendar';
 
-import { DragulaModule } from 'ng2-dragula';
+import { DndListModule } from 'ngx-drag-and-drop-lists';
 
 import localeru from '@angular/common/locales/ru';
 
@@ -66,7 +66,7 @@ registerLocaleData(localeru);
 		EmojiPickerModule,
 		PipesModule,
 		NgCalendarModule,
-		DragulaModule
+		DndListModule
 	],
 	exports: [
 		LoginComponent,
