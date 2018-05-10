@@ -1,6 +1,7 @@
 full-shedule,
 manage-shedule {
-    .list-header {
+    .list-header,
+    .day-week {
         background-color: #d3d3d3;
         text-align: center;
         font-size: 16px;
@@ -8,16 +9,30 @@ manage-shedule {
         font-weight: bold;
         margin-bottom: 0;
     }
-}
-
-.dndPlaceholder {
-    background-color: #ddd;
-    display: block;
-    min-height: 69px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 1px solid rgba(86, 61, 124, .2);
-    position: relative;
-    padding-right: 15px;
-    padding-left: 15px;
+    .week {
+        background-color: #f4f4f4;
+        padding: 16px;
+        font-size: 1.4rem;
+    }
+    .day-week {
+        height: 25px;
+        padding-top: 3px;
+    }
+    .dndPlaceholder {
+        background-color: #ddd;
+        display: block;
+        min-height: 161px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border: 1px solid rgba(86, 61, 124, .2);
+        position: relative;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .max-width {
+        max-width: 200px;
+    }
+    .select-text {
+        font-size: 16px;
+    }
 }

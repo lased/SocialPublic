@@ -86,35 +86,64 @@
         </button>
       </ion-item>
     </ion-list>
-    <ion-list *ngSwitchCase="'shedule'">
-      <ion-item-group *ngFor="let w of weeks | objNgFor">
-        <ion-item-divider color="light">{{ w.value }}</ion-item-divider>
+    <div *ngSwitchCase="'shedule'">
+      <ion-item>
+        <ion-label>Функция Drag n Drop</ion-label>
+        <ion-toggle [(ngModel)]="dragNDrop"></ion-toggle>
+      </ion-item>
+      <div *ngFor="let w of weeks | objNgFor">
+        <div class="week" color="light">{{ w.value }}</div>
         <ng-template ngFor let-item [ngForOf]="shedule[w.key]" let-i="index">
-          <ion-list-header *ngIf="item != null">
+          <div class="day-week" *ngIf="item != null && item.length > 0" #day>
             {{ dayWeek[i] }}
-          </ion-list-header>
-
-          <div [dndList] [dndModel]="item">
-            <div *ngIf="item != null" style="height: 10px;"></div>
-            <ion-item *ngFor="let s of item; let indx = index" [dndDraggable] [dndObject]="s" (dndMoved)="removeMoved(s, item)" text-center>
-              <div item-start>
-                {{s.pair}} пара
-                <br> {{s.startTime}} - {{s.endTime}}
-              </div>
-              <h2>{{ s.subject }}</h2>
-              <h3>{{ s.teacher }}</h3>
-              <div item-end>
-                ауд. {{ s.lectureHall }}
-              </div>
-              <button ion-button item-end clear icon-only (click)="removeShedule(w.key, i)">
-                <ion-icon name="md-close"></ion-icon>
-              </button>
-            </ion-item>
           </div>
 
+          <ion-grid [dndList]="{'disabled': !dragNDrop}" [dndModel]="item" *ngIf="item != null">
+            <ion-row *ngFor="let s of item; let indx = index" [dndDraggable]="{draggable:true}" [dndObject]="s" (dndMoved)="removeMoved(s, item)" align-items-center>
+              <ion-col col-2 style="overflow: hidden;">
+                <ion-select class="max-width" [(ngModel)]="s.pair" cancelText="Отмена">
+                  <ion-option [selected]="s.pair == p.number" [value]="p.number" *ngFor="let p of shedule.pairs; let i = index">
+                    {{ i + 1}} пара
+                  </ion-option>
+                </ion-select>
+              </ion-col>
+              <ion-col col-6>
+                <ion-list no-margin>
+                  <ion-item>
+                    <ion-label floating>Предмет:</ion-label>
+                    <ion-input type="text" [(ngModel)]="s.subject" [value]="s.subject"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label floating>Преподаватель:</ion-label>
+                    <ion-input type="text" [(ngModel)]="s.teacher" [value]="s.teacher"></ion-input>
+                  </ion-item>
+                  <ion-item hidden></ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-3>
+                <ion-list no-margin>
+                  <ion-item>
+                    <ion-label floating>Ауд.:</ion-label>
+                    <ion-input type="text" [(ngModel)]="s.lectureHall" [value]="s.lectureHall"></ion-input>
+                  </ion-item>
+                  <ion-item hidden></ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-1>
+                <button ion-button clear icon-only (click)="removeShedule(w.key, i)">
+                  <ion-icon name="md-close"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
         </ng-template>
-      </ion-item-group>
-    </ion-list>
+      </div>
+
+      <button ion-button margin-top full (click)="saveShedule()">Сохранить</button>
+      <button ion-button margin-top full (click)="saveShedule()">Сохранить</button>
+
+    </div>
   </div>
 
 </ion-content>

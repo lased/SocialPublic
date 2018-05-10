@@ -26,6 +26,8 @@ export class ManageSheduleComponent {
   weeks: any;
   error: string = '';
 
+  dragNDrop: boolean = false;
+
   constructor(
     private viewCtrl: ViewController,
     private navParams: NavParams,
@@ -55,8 +57,15 @@ export class ManageSheduleComponent {
     });
   }
 
+  saveShedule(){
+    this.sheduleProvider.addShedule(this.groupId, {
+      lowerWeek: this.shedule.lowerWeek,
+      topWeek: this.shedule.topWeek
+    }).subscribe();
+  }
+
   removeMoved(item, list) {
-    console.log(this.shedule);
+    console.log(list);
     list.splice(list.indexOf(item), 1);
   }
 
